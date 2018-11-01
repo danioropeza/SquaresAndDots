@@ -1,10 +1,11 @@
 require 'sinatra'
 class App < Sinatra::Base
     get '/' do
-        "as"
+        erb:inicio
     end
 
-    post '/sumar' do
-        "Sumar"
+    get '/configurarPartida' do
+        erb:configurarPartida
     end
+
 end
