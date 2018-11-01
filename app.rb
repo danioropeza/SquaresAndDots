@@ -1,10 +1,10 @@
 require 'sinatra'
 class App < Sinatra::Base
-get '/' do
-    erb:bienvenida
-end
+    get '/' do
+        "as"
+    end
 
-post '/sumar' do
-    "Sumar"
-end
+    post '/sumar' do
+        "Sumar"
+    end
 end
