@@ -11,5 +11,6 @@ Feature: Iniciar partida
         Then deberia ver el logo del juego "logo"
     Scenario: Boton de inicio
         Given visito la pagina principal
-        When presiono el boton "iniciar"
+        When presiono el boton "Iniciar"
         Then deberia ver la pagina de configurar partida con el titulo "Configurar partida"
+        
