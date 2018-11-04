@@ -1,20 +1,26 @@
+
 <script>
     function mostrarMensaje(){
-        var cantidad=        document.getElementById('Cantidad jugadores').value
+        var cantidad=        document.getElementById('Cantidadjugadores').value
         document.getElementById('jugadores').innerHTML= "Partida de " +cantidad+" jugadores"
+        document.getElementById('Continuar').style.display='inline'
     }
 </script>
-<h3>Configurar partida</h3>
 
-<form >
+<h3>Configurar partida</h3>
+<form method="POST" action="/configurarJugador">
+
     <label>Escoja la cantidad de jugadores: </label>
-    <select id='Cantidad jugadores'  name='Cantidad jugadores'>
+    <select id='Cantidadjugadores'  name='Cantidadjugadores'>
         <option value="2" selected> 2 </option>
         <option value="3"> 3 </option>
         <option value="4"> 4 </option>
     </select>
 
     <input type="button" onClick="mostrarMensaje()" id='Ok' name='Ok' value ='Ok'>
-</form>
-
+    
 <p id="jugadores"></p>
+
+    <input type="submit" id='Continuar' name='Continuar' style="display: none" value='Continuar'>
+
+</form>
