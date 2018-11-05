@@ -1,26 +1,82 @@
 
 <script>
+var numero=1
     function mostrarMensaje(){
-        var cantidad=        document.getElementById('Cantidadjugadores').value
+        var cantidad=document.getElementById('Cantidadjugadores').value
         document.getElementById('jugadores').innerHTML= "Partida de " +cantidad+" jugadores"
-        document.getElementById('Continuar').style.display='inline'
+        document.getElementById('jugador1').style.display='inline'
+        document.getElementById('cantidad').style.display='none'
+    }
+
+    function jugadores(){
+        var cantidad=document.getElementById('Cantidadjugadores').value
+        if(numero<cantidad){                
+            document.getElementById("jugador" + numero+"").style.display='none'
+            numero++
+            document.getElementById("jugador" + numero+"").style.display='inline'
+        }
+        else
+        {
+           document.getElementById('Confirmar').style.display='inline'
+
+        }
+
+
+
     }
 </script>
 
 <h3>Configurar partida</h3>
-<form method="POST" action="/configurarJugador">
+<form method="POST" action="/juego">
 
-    <label>Escoja la cantidad de jugadores: </label>
-    <select id='Cantidadjugadores'  name='Cantidadjugadores'>
-        <option value="2" selected> 2 </option>
-        <option value="3"> 3 </option>
-        <option value="4"> 4 </option>
-    </select>
+    <div id="cantidad" name="cantidad">
+        <label>Escoja la cantidad de jugadores: </label>
+        <select id='Cantidadjugadores'  name='Cantidadjugadores'>
+            <option value="2" selected> 2 </option>
+            <option value="3"> 3 </option>
+            <option value="4"> 4 </option>
+        </select>
+        <input type="button" onClick="mostrarMensaje()" id='Ok' name='Ok' value ='Ok'>
+    </div>
 
-    <input type="button" onClick="mostrarMensaje()" id='Ok' name='Ok' value ='Ok'>
-    
-<p id="jugadores"></p>
+    <p id="jugadores"></p>
 
-    <input type="submit" id='Continuar' name='Continuar' style="display: none" value='Continuar'>
+    <div  id="jugador1" name="jugador1" style="display: none">            
+        <h4>Jugador 1</h4>
+        <label> Nombre: </label>
+        <input type="text" id='nombre1' name='nombre1' value="Jugador1" required>
+        <label> Color: </label>            
+        <input type="color" id='color1' name='color1' value='#FF0000' >
+        <input type="button" onClick="jugadores()" id='Ok1' name='Ok1' value ='Ok'>
+    </div>
+
+    <div id="jugador2" name="jugador2" style="display: none">    
+        <h4>Jugador 2</h4>
+        <label> Nombre: </label>
+        <input type="text" id='nombre2' name='nombre2'  value="Jugador2" required>       
+        <label> Color: </label>
+        <input type="color" id='color2' name='color2'  value='#0101DF'>
+        <input type="button" onClick="jugadores()" id='Ok2' name='Ok2' value ='Ok'>
+    </div>
+
+    <div id="jugador3" name="jugador3" style="display: none">    
+        <h4>Jugador 3</h4>
+        <label> Nombre: </label>
+        <input type="text" id='nombre3' name='nombre3'  value="Jugador3"required>
+        <label> Color: </label>
+        <input type="color" id='color3' name='color3'  value='#FFFF00'>
+        <input type="button" onClick="jugadores()" id='Ok3' name='Ok3' value ='Ok'>
+    </div>
+
+     <div id="jugador4" name="jugador4" style="display: none">    
+        <h4>Jugador 4</h4>
+        <label> Nombre: </label>
+        <input type="text" id='nombre4' name='nombre4'  value="Jugador4" required>
+        <label> Color: </label>
+        <input type="color" id='color4' name='color4'  value='#00FF00'>
+        <input type="button" onClick="jugadores()" id='Ok4' name='Ok4' value ='Ok'>
+    </div>
+    <br/>
+    <input type="submit" id='Confirmar' name='Confirmar' style="display: none" value ='Confirmar'>
 
 </form>

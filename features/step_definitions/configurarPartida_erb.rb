@@ -15,8 +15,8 @@ Given("visito la pagina configurar y selecciono la opcion {string} jugadores de 
 end
   
 
-#Then("deberia mostrar un mensaje {string}") do |mensaje|
- #   expect(page).to have_content(mensaje)
-#end
+Then("deberia mostrar un mensaje {string}") do |mensaje|
+    expect(page).to have_content(mensaje,visible:false)
+end
   
 
