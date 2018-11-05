@@ -6,8 +6,8 @@ Then("deberia ver el nombre del juego {string}") do |mensaje|
     expect(page).to have_content(mensaje)
 end
 
-Then("deberia ver el logo del juego {string}") do |imagen|
-    expect(page.find('#' + imagen)['name']).to have_content imagen
+Then("deberia ver el logo del juego {string}") do |logo|
+    expect(page.find('#' + logo)['name']).to have_content logo
 end
 
 When("presiono el boton {string}") do |nombreBoton|
