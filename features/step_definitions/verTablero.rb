@@ -1,5 +1,5 @@
 Given("visito la pagina jugar") do
-    visit('/jugar') 
+    visit('/juego') 
 end
 
 Then("deberia ver el tablero {string} del juego") do |tablero|
