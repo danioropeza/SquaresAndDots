@@ -8,7 +8,7 @@ Feature: Iniciar partida
         Then deberia ver el nombre del juego "Cuadrados y puntos"
     Scenario: Logo
         Given visito la pagina principal
-        Then deberia ver el logo del juego "logo"
+        Then deberia ver el logo del juego "logoApp"
     Scenario: Boton de inicio
         Given visito la pagina principal
         When presiono el boton "Iniciar"
