@@ -57,4 +57,8 @@ class Casilla
     def marcarInferior()
         @inferior=true
     end
+
+    def mostrar()
+        puts @color
+    end
 end
