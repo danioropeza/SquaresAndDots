@@ -6,7 +6,7 @@ describe Casilla do
     end
 
     it "deberia devolver 'true' cuando se crea la casilla " do
-        expect(@casilla.nula())==true
+        expect(@casilla.esCasillaNula()).to eq true
     end
 
     it "deberia devolver  el color blanco '#ffffff' al crear una nueva casilla" do

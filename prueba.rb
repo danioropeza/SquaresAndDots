@@ -1,17 +1,31 @@
 require "./lib/casilla"
 require 'matrix'
 
-        casilla1=Casilla.new()
-        casilla1.pintar("green")
-        casilla2=Casilla.new()
-        casilla2.pintar("red")
-        casilla3=Casilla.new()
-        casilla3.pintar("black")
-        casilla4=Casilla.new()
+
+casilla=Casilla.new()
+casilla.inicializar()
+casilla0=Casilla.new()
+casilla0.inicializar()
+
+@tablero= Matrix[[casilla0,casilla,casilla,casilla,casilla],
+[casilla,casilla,casilla,casilla,casilla],
+[casilla,casilla,casilla,casilla,casilla],
+[casilla,casilla,casilla,casilla,casilla],
+[casilla,casilla,casilla,casilla0,casilla],
+[casilla,casilla,casilla,casilla,casilla]]        
+
+@tablero.each do |i|
+    #i.marcarInferior()
+    puts i.inferior()
+end
 
 
-        tablero= Matrix[[casilla1,casilla4],[casilla3,casilla2]] 
-      #  tablero.each do |i|
-       #     i.mostrar()
-         tablero.[](1, 1).mostrar()
-        
+
+@tablero[0,0]. marcarInferior()
+puts "hola"
+puts @tablero[0,0].inferior()
+puts @tablero[2,2].inferior()
+
+
+
+#puts casilla0.inferi

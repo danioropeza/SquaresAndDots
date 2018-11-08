@@ -8,7 +8,7 @@ class Casilla
         @color= "#ffffff"
     end
 
-    def nula()        
+    def esCasillaNula()        
         if(@superior==false && @inferior==false && @derecho==false && @izquierdo==false)
             return true
         end
@@ -58,7 +58,7 @@ class Casilla
         @inferior=true
     end
 
-    def mostrar()
-        puts @color
-    end
+    #def mostrar()
+     #   puts @color
+    #end
 end
