@@ -1,4 +1,6 @@
 require 'matrix'
+require "./lib/casilla"
+
 class Tablero
 
     def inicializar()
@@ -55,11 +57,13 @@ class Tablero
 
 
         @tablero= Matrix[[casilla1,casilla2,casilla3,casilla4,casilla5],
-        [casilla6,casilla7,casilla8,casilla9,casilla10],
+        [casilla6,casilla7,casilla8,casilla9,casilla10], 
         [casilla11,casilla12,casilla13,casilla14,casilla15],
         [casilla16,casilla17,casilla18,casilla19,casilla20],
         [casilla21,casilla22,casilla23,casilla24,casilla25]]
+        
         @tamanio=4
+
     end
 
     def vacio()
@@ -71,7 +75,7 @@ class Tablero
         return true
     end
 
-    def marcar(x,y,lado)
+    def marcar(x,y,lado,color)
         x=x-1
         y=y-1
 
@@ -97,6 +101,8 @@ class Tablero
                 @tablero[x, y+1]. marcarSuperior()
             end
         end
+        
+        pintarCasilla(x,y,color)
     end
 
     def ver(x,y,lado)
@@ -114,13 +120,120 @@ class Tablero
             return @tablero[x, y]. inferior()
         end
     end
+    
+    def pintarCasilla(x,y,color)
+       
+        cantidad=0
+        if(@tablero[x, y].derecho()==true)
+           cantidad=cantidad+1
+        end
+        if(@tablero[x,y].izquierdo()==true)
+            cantidad=cantidad+1
+        end
+        if(@tablero[x,y].superior()==true)
+            cantidad=cantidad+1
+        end
+        if(@tablero[x,y].inferior()==true)
+            cantidad=cantidad+1
+        end
+
+        if(cantidad==4)
+            @tablero[x,y].pintar(color)
+            puts cantidad
+        end
+
+    end
+
+    def contarCasillasJugador(color)   
+        cantidad=0     
+        @tablero.each do |i|
+            if(i.color()==color)
+                cantidad=cantidad+1
+            end
+        end
+        return cantidad
+    end
+
+    def estaPintado(x,y)
+        x=x-1
+        y=y-1
+        if(@tablero[x,y].color()== "#ffffff")
+            return false
+        end
+        return true
+    end
+
+    def multiploTamanio(numero)
+        if(numero % (@tamanio+1)==0)
+            return true
+        end
+        return false
+    end
+
+    def generarHTMLTabla()
+        bodyTabla=" <tbody> "
+        casillaLineaHorizontal=" <td><img src='images/lineaHorizontal.jpg'/></td> "
+        casillaLineaVertical=" <td><img src='images/lineaVertical.jpg'/></td> "
+        casillaPunto=" <td><img src='images/punto.jpg'/></td> "
+        casillaEnBlanco=" <td width='25px' height='25px' bgcolor='white'></td> "
+        numeroCasilla=1
+        numeroFila=1
+        filaPuntos="  <tr> "
+        filaPintada="  <tr> "
+        ultimaFila="  <tr> "
+        @tablero.each do |i|
+            filaPuntos=filaPuntos+casillaPunto
+            if(i.superior())
+                filaPuntos=filaPuntos+casillaLineaHorizontal
+            end
+            if(!i.superior())
+                filaPuntos=filaPuntos+casillaEnBlanco
+            end
+            if(i.izquierdo())
+                filaPintada=filaPintada+casillaLineaVertical
+            end
+            if(!i.izquierdo())
+                filaPintada=filaPintada+casillaEnBlanco
+            end
+            filaPintada=filaPintada+i.generarHTML()
+            if(numeroFila==@tamanio)
+                ultimaFila=ultimaFila+casillaPunto
+                if(i.inferior())
+                    ultimaFila=ultimaFila+casillaLineaHorizontal
+                end
+                if(!i.inferior())
+                    ultimaFila=ultimaFila+casillaEnBlanco
+                end
+
+            end
+            if(multiploTamanio(numeroCasilla))
+                if(i.derecho())
+                    filaPintada=filaPintada+casillaLineaVertical
+                end
+                if(!i.derecho())
+                    filaPintada=filaPintada+casillaEnBlanco
+                end
+                filaPuntos=filaPuntos+casillaPunto
+                filaPuntos=filaPuntos+"  </tr> "
+                filaPintada=filaPintada+"  </tr> "
+                numeroFila=numeroFila+1
+                bodyTabla=bodyTabla+filaPuntos+filaPintada
+                filaPuntos="  <tr> "
+                filaPintada="  <tr> "
+            end
+           
+            numeroCasilla=numeroCasilla+1
+
+        end
+        ultimaFila=ultimaFila+casillaPunto
+        ultimaFila=ultimaFila+"  </tr> "
+        bodyTabla=bodyTabla+ultimaFila+" </tbody> "
+        return bodyTabla
+    end
 
     #si esta en la fila 1 y esta arriba no marca dos casillas
     #si esta en la ultima fila y esta abajo no marca dos casillas
     #si esta en la primera columna y es lado izquierdo no marca dos casillas
     #si esta en la ultima columna y es lado derecho no marca dos casillas
     #si no cumple alguno de estos 4 casos marca dos casillas
-
-
-
 end
