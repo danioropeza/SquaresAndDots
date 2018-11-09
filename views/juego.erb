@@ -7,13 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/juego.css"/>
   </head>
   <body>
-  Juego en progreso <p/> <%= @jugador1 %> - <%= @jugador2 %>
-    <p/><%= @score %>
-    <p/>
+ 
     <div class="page-header center" align="center"><h3>Juego</h3></div>
     <div class="col-md-6 container" align="right">
         <table id="tabla" name="tabla">
-        <p/><%= @tablerito %>
+        <p/><%= @bodyTablero %>
         <p/>
         </table>
     </div>
@@ -24,46 +22,60 @@
                     <strong for="nombre" class="control-label col-md-2">Turno</strong>
                 </div>
                 <div class="form-group">
-                    <label for="nombre" class="control-label col-md-2">Jugador1:</label>
+                    <label for="nombre" class="control-label col-md-2"></label>
                     <div class="col-md-4">
-                        <p class="form-control-static text-success">Daniel Oropeza Soria</p>
+                        <p class="form-control-static text-success">    <p/><%= @jugadorActual %>
+        <p/>       </p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="nombre" class="control-label col-md-2">Puntaje</label>
                 </div>
                 <div class="form-group">
-                    <label for="nombre" class="control-label col-md-2">1.</label>
+                    <label for="nombre" class="control-label col-md-2"> <p/><%= @puntaje1 %>
+</p></label>
                     <div class="col-md-4">
-                        <p class="form-control-static text-success">Daniel Oropeza</p>
+                        <p class="form-control-static text-success"><p/><%= @jugador1 %>
+</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nombre" class="control-label col-md-2">2.</label>
+                    <label for="nombre" class="control-label col-md-2"> <p/><%= @puntaje2 %>
+</p></label>
                     <div class="col-md-4">
-                        <p class="form-control-static text-primary">Juan Perez</p>
+                        <p class="form-control-static text-primary"><p/><%= @jugador2 %>
+        <p/></p>
                     </div>
                 </div>
             </fieldset>
         </form>
     </div>
     <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="input-group" align="center">
-            <input type="text" class="form-control" placeholder="Fila" />
-            <input type="text" class="form-control" placeholder="Columna" />
+    <form method="POST" action="/juego1">
+        <div class="col-md-6">
+            <div class="input-group" align="center">
+                <label>Fila</label>
+                <input type="number" class="form-control" id="y" name="y" min="1" max="5"/>
+                <br/>
+                <label>Columna</label>
+                <input type="number" class="form-control" id="x" name="x" min="1" max="5"/>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3"></div>
-    <br />
-    <div class="col-md-6">
-        <div class="btn-group btn-group-justified">
-            <a href="#" class="btn btn-primary">Arriba</a>
-            <a href="#" class="btn btn-primary">Abajo</a>
-            <a href="#" class="btn btn-primary">Izquierda</a>
-            <a href="#" class="btn btn-primary">Derecha</a>
+        <div class="col-md-3"></div>
+        <br />
+        <div class="col-md-6">
+            <div class="btn-group btn-group-justified">
+            <select class="form-control"  id="direccion" name="direccion">
+                    <option value="superior" selected> Arriba </option>
+                    <option value="inferior"> Abajo </option>
+                    <option value="izquierdo"> Izquierda </option>
+                    <option value="derecho"> Derecha </option>
+                </select>
+            </div>
+            <input class="btn btn-primary" type="submit" id='Jugada' name='Jugada' value ='Jugada'>
+
         </div>
-    </div>
+    </form>
     <div class="col-md-3"></div>
   </body>
 </html> 
