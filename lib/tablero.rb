@@ -75,30 +75,38 @@ class Tablero
         return true
     end
 
+    def lleno()
+        @tablero.each do |i|
+            if(i.color=="#ffffff")
+                return false
+            end
+        end
+        return true
+    end
     def marcar(x,y,lado,color)
         x=x-1
         y=y-1
 
         case lado
         when "derecho"
-            @tablero[x, y]. marcarDerecho()
+            @tablero[y, x]. marcarDerecho()
             if(x!=@tamanio)
-                @tablero[x+1, y]. marcarIzquierdo()
+                @tablero[y, x+1]. marcarIzquierdo()
             end
         when "izquierdo"
-            @tablero[x, y]. marcarIzquierdo()            
+            @tablero[y, x]. marcarIzquierdo()            
             if(x!=0)
-                @tablero[x-1, y]. marcarDerecho()
+                @tablero[ y,x-1]. marcarDerecho()
             end
         when "superior"
-            @tablero[x, y]. marcarSuperior()
+            @tablero[y, x]. marcarSuperior()
             if(y!=0)
-                @tablero[x, y-1]. marcarInferior()
+                @tablero[y-1, x]. marcarInferior()
             end
         when "inferior"
-            @tablero[x, y]. marcarInferior()
+            @tablero[y,x]. marcarInferior()
             if(y!=@tamanio)
-                @tablero[x, y+1]. marcarSuperior()
+                @tablero[ y+1,x]. marcarSuperior()
             end
         end
         
@@ -111,34 +119,34 @@ class Tablero
 
         case lado
         when "derecho"
-            return @tablero[x, y]. derecho()
+            return @tablero[y, x]. derecho()
         when "izquierdo"
-            return @tablero[x, y]. izquierdo()            
+            return @tablero[y, x]. izquierdo()            
         when "superior"
-            return @tablero[x, y]. superior()
+            return @tablero[y, x]. superior()
         when "inferior"
-            return @tablero[x, y]. inferior()
+            return @tablero[y, x]. inferior()
         end
     end
     
     def pintarCasilla(x,y,color)
        
         cantidad=0
-        if(@tablero[x, y].derecho()==true)
+        if(@tablero[ y,x].derecho()==true)
            cantidad=cantidad+1
         end
-        if(@tablero[x,y].izquierdo()==true)
+        if(@tablero[y,x].izquierdo()==true)
             cantidad=cantidad+1
         end
-        if(@tablero[x,y].superior()==true)
+        if(@tablero[y,x].superior()==true)
             cantidad=cantidad+1
         end
-        if(@tablero[x,y].inferior()==true)
+        if(@tablero[y,x].inferior()==true)
             cantidad=cantidad+1
         end
 
         if(cantidad==4)
-            @tablero[x,y].pintar(color)
+            @tablero[y,x].pintar(color)
             puts cantidad
         end
 
@@ -157,7 +165,7 @@ class Tablero
     def estaPintado(x,y)
         x=x-1
         y=y-1
-        if(@tablero[x,y].color()== "#ffffff")
+        if(@tablero[y,x].color()== "#ffffff")
             return false
         end
         return true
@@ -231,9 +239,4 @@ class Tablero
         return bodyTabla
     end
 
-    #si esta en la fila 1 y esta arriba no marca dos casillas
-    #si esta en la ultima fila y esta abajo no marca dos casillas
-    #si esta en la primera columna y es lado izquierdo no marca dos casillas
-    #si esta en la ultima columna y es lado derecho no marca dos casillas
-    #si no cumple alguno de estos 4 casos marca dos casillas
 end

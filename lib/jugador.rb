@@ -1,6 +1,5 @@
 class Jugador
-    @nombre=""
-    @color=""
+    
     def ingresarNombre(nuevoNombre)
         @nombre=nuevoNombre
 
