@@ -61,23 +61,8 @@ class App < Sinatra::Base
         direccion=params[:direccion]
         @@tablero.marcar(x,y,direccion,@jugadorActualColor)
         @bodyTablero= @@tablero.generarHTMLTabla()
-        if(!@@tablero.lleno())
-            erb:juego
-        end
-        if(@@tablero.lleno())
-            if(@puntaje1>@puntaje2)
-                @ganador=@@nombre1
-            end
-            if(@puntaje1<@puntaje2)
-                @ganador=@@nombre2
-            end
-            if(@puntaje1==@puntaje2)
-                @ganador="Empate"
-            end
-            
-
-            erb:resultado
-        end
+        erb:juego
+    
 
     end
 
