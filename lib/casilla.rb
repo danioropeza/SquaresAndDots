@@ -6,6 +6,7 @@ class Casilla
         @derecho=false
         @izquierdo=false
         @color= "#ffffff"
+        @codigo=""
     end
 
     def esCasillaNula()        
@@ -57,8 +58,9 @@ class Casilla
     def marcarInferior()
         @inferior=true
     end
+    def generarHTML()
+        return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
+    end
 
-    #def mostrar()
-     #   puts @color
-    #end
+    
 end
