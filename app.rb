@@ -56,6 +56,9 @@ class App < Sinatra::Base
         @puntaje1=@@tablero.contarCasillasJugador(@@color1)*2
         @jugador2=@@nombre2
         @puntaje2=@@tablero.contarCasillasJugador(@@color2)*2
+
+        @colorJugador1=@@color1
+        @colorJugador2=@@color2
         x=params[:x].to_i
         y=params[:y].to_i
         direccion=params[:direccion]
