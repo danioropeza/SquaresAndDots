@@ -1,4 +1,5 @@
 language: ruby
 rvm: 2.4.4
 script:
- pu""  - "bundle exec cucumber"""
+  - "bundle exec rake spec"
+  - "bundle exec cucumber"
