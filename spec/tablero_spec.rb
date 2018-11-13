@@ -6,9 +6,13 @@ describe Tablero do
         @tablero.inicializar()
     end
 
-    it "deberia devolver vacio igual a  'true' cuando se crea el tablero " do
-       expect(@tablero.vacio()).to eq true
+    it "deberia devolver'true'" do
+       expect(@tablero.vacio()).to eq false
     end
+
+    it "deberia devolver vacio igual a  'true' cuando se crea el tablero " do
+        expect(@tablero.vacio()).to eq true
+     end
 
     it "deberia marcar la posicion 1,3 lado derecho con 'true' cuando se envien las coordenadas '(1,3)' lado 'derecho'" do
         @tablero.marcar(1,3,"derecho","blue")
