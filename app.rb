@@ -17,20 +17,22 @@ class App < Sinatra::Base
         erb:inicio
     end
 
-    get '/configurarPartida' do
-        erb:configurarPartida
+    get '/jugador1' do
+        erb:jugador1
     end
 
+    post '/jugador2' do
+        @@nombre1 = (params[:nombre])
+        @@color1 = (params[:color])
+       
+        erb:jugador2
+    end
     
     post '/juego' do
         @cantidadJugadores = params[:Cantidadjugadores].to_i
 
-        @@nombre1 = (params[:nombre1])
-        @@nombre2 = (params[:nombre2])
-  
-
-        @@color1 = (params[:color1])
-        @@color2 = (params[:color2])
+        @@nombre2 = (params[:nombre])
+        @@color2 = (params[:color])
   
         @jugadorActual = @@nombre1
         @jugadorActualColor = @@color1

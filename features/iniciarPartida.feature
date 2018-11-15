@@ -12,5 +12,5 @@ Feature: Iniciar partida
     Scenario: Boton de inicio
         Given visito la pagina principal
         When presiono el boton "Iniciar"
-        Then deberia ver la pagina de configurar partida con el titulo "Configurar partida"
+        Then deberia ver la pagina con el titulo "Jugador 1"
         

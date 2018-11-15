@@ -14,6 +14,6 @@ When("presiono el boton {string}") do |nombreBoton|
     click_button(nombreBoton)
 end
 
-Then("deberia ver la pagina de configurar partida con el titulo {string}") do |titulo|
+Then("deberia ver la pagina de jugador1 con el titulo {string}") do |titulo|
     expect(page).to have_content(titulo)
 end
