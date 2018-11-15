@@ -1,5 +1,4 @@
 class Casilla
-
     def inicializar()
         @superior=false
         @inferior=false
@@ -10,17 +9,19 @@ class Casilla
     end
 
     def esCasillaNula()        
-        if(@superior==false && @inferior==false && @derecho==false && @izquierdo==false)
-            return true
+        resultado = true
+        if(@superior && @inferior && @derecho && @izquierdo)
+            resultado = false
         end
-        return false
+        return resultado
     end
 
-    def marcada()        
+    def esCasillaMarcada()  
+        resultado = false      
         if(@superior && @inferior && @derecho && @izquierdo)
-            return true
+            resultado = true
         end
-        return false
+        return resultado
     end
 
     def color()
@@ -61,6 +62,4 @@ class Casilla
     def generarHTML()
         return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
     end
-
-    
 end

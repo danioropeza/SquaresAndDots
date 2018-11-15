@@ -10,99 +10,106 @@ class Tablero
         @tamanio=4
     end
 
-    def vacio()
+    def esVacio()
+        resultado = true
         @tablero.each do |i|
             if(!i.esCasillaNula())
-                return false
+                resultado = false
+                break
             end
         end
-        return true
+        return resultado
     end
 
-    def lleno()
+    def esLleno()
+        resultado = true
         @tablero.each do |i|
-            if(i.color=="#ffffff")
-                return false
+            if(i.color == "#ffffff")
+                resultado = false
+                break
             end
         end
-        return true
+        return resultado
     end
+
     def marcar(x, y, lado, color)
-        x=x-1
-        y=y-1
+        x = x-1
+        y = y-1
 
         case lado
             when "derecho"
-                @tablero[y, x]. marcarDerecho()
-                if(x!=@tamanio)
-                    @tablero[y, x+1]. marcarIzquierdo()
+                @tablero[y, x].marcarDerecho()
+                if(x != @tamanio)
+                    @tablero[y, x+1].marcarIzquierdo()
                 end
             when "izquierdo"
-                @tablero[y, x]. marcarIzquierdo()            
-                if(x!=0)
-                    @tablero[ y,x-1]. marcarDerecho()
+                @tablero[y, x].marcarIzquierdo()            
+                if(x != 0)
+                    @tablero[y, x-1].marcarDerecho()
                 end
             when "superior"
-                @tablero[y, x]. marcarSuperior()
-                if(y!=0)
-                    @tablero[y-1, x]. marcarInferior()
+                @tablero[y, x].marcarSuperior()
+                if(y != 0)
+                    @tablero[y-1, x].marcarInferior()
                 end
             when "inferior"
-                @tablero[y,x]. marcarInferior()
-                if(y!=@tamanio)
-                    @tablero[ y+1,x]. marcarSuperior()
+                @tablero[y, x].marcarInferior()
+                if(y != @tamanio)
+                    @tablero[y+1, x].marcarSuperior()
                 end
         end
-        
         pintarCasilla(x,y,color)
     end
 
     def ver(x, y, lado)
-        x=x-1
-        y=y-1
-
+        x = x-1
+        y = y-1
+        resultado = ""
         case lado
             when "derecho"
-                return @tablero[y, x]. derecho()
+                resultado = @tablero[y, x].derecho()
             when "izquierdo"
-                return @tablero[y, x]. izquierdo()            
+                resultado = @tablero[y, x].izquierdo()            
             when "superior"
-                return @tablero[y, x]. superior()
+                resultado = @tablero[y, x].superior()
             when "inferior"
-                return @tablero[y, x]. inferior()
+                resultado = @tablero[y, x].inferior()
         end
+        return resultado
     end
     
     def pintarCasilla(x, y, color)
-        if(@tablero[ y,x].derecho() && @tablero[y,x].izquierdo() && @tablero[y,x].superior() && @tablero[y,x].inferior())
-            @tablero[y,x].pintar(color)
+        if(@tablero[y, x].derecho() && @tablero[y, x].izquierdo() && @tablero[y, x].superior() && @tablero[y, x].inferior())
+            @tablero[y, x].pintar(color)
         end
     end
 
     def contarCasillasJugador(color)   
-        cantidad=0     
+        cantidad = 0     
         @tablero.each do |i|
-            if(i.color()==color)
-                cantidad=cantidad+1
+            if(i.color() == color)
+                cantidad = cantidad+1
             end
         end
         return cantidad
     end
 
-    def estaPintado(x,y)
-        x=x-1
-        y=y-1
-        if(@tablero[y,x].color()== "#ffffff")
-            return false
+    def estaPintado(x, y)
+        x = x-1
+        y = y-1
+        resultado = true
+        if(@tablero[y, x].color() == "#ffffff")
+            resultado = false
         end
-        return true
+        return resultado
     end
 
     def multiploTamanio(numero)
-        if(numero % (@tamanio+1)==0)
-            return true
+        resultado = false
+        if(numero % (@tamanio+1) == 0)
+            resultado = true
         end
-        return false
+        return resultado
     end
 
     def generarHTMLTabla()
@@ -121,14 +128,12 @@ class Tablero
             filaPuntos = filaPuntos + casillaPunto
             if(i.superior())
                 filaPuntos = filaPuntos + casillaLineaHorizontal
-            end
-            if(!i.superior())
+            else
                 filaPuntos = filaPuntos + casillaEnBlanco
             end
             if(i.izquierdo())
                 filaPintada = filaPintada + casillaLineaVertical
-            end
-            if(!i.izquierdo())
+            else
                 filaPintada = filaPintada + casillaEnBlanco
             end
             filaPintada = filaPintada + i.generarHTML()
@@ -136,8 +141,7 @@ class Tablero
                 ultimaFila = ultimaFila + casillaPunto
                 if(i.inferior())
                     ultimaFila = ultimaFila + casillaLineaHorizontal
-                end
-                if(!i.inferior())
+                else 
                     ultimaFila = ultimaFila + casillaEnBlanco
                 end
 
@@ -145,8 +149,7 @@ class Tablero
             if(multiploTamanio(numeroCasilla))
                 if(i.derecho())
                     filaPintada = filaPintada + casillaLineaVertical
-                end
-                if(!i.derecho())
+                else
                     filaPintada = filaPintada + casillaEnBlanco
                 end
                 filaPuntos = filaPuntos + casillaPunto

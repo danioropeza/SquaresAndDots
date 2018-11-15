@@ -1,14 +1,13 @@
 class Jugador
     
     def ingresarNombre(nuevoNombre)
-        @nombre=nuevoNombre
-
+        @nombre = nuevoNombre
     end
     def nombre()
         return @nombre
     end
     def ingresarColor(nuevoColor)
-        @color=nuevoColor
+        @color = nuevoColor
 
     end
     def color()

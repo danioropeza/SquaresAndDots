@@ -1,5 +1,4 @@
 Given("visito la pagina configurar y  lleno la imformacion del jugador") do
-
   visit('/configurarPartida') 
 end
   
