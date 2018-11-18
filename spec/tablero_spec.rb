@@ -57,4 +57,6 @@ describe Tablero do
         @tablero.marcar(2,3,"derecho","blue")
         expect(@tablero.estaPintado(2,3)).to eq true 
      end
+     
+
 end

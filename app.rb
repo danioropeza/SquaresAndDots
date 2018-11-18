@@ -29,7 +29,6 @@ class App < Sinatra::Base
     end
     
     post '/configuracionInicialPartida' do
-        @cantidadJugadores = params[:Cantidadjugadores].to_i
         @@nombre2 = (params[:nombre])
         @@color2 = (params[:color])
         redirect "/juego"

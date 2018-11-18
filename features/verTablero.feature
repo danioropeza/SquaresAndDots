@@ -3,8 +3,12 @@ Feature: Ver tablero
     quiero ver el tablero 
     para ver el estado de la partida y saber que jugadas puedo realizar
 
-    Scenario: Mostrar tablero de juego.
+    Scenario: Tablero de juego.
         Given visito la pagina jugar
-        #Then deberia ver el titulo "Juego" 
+        #Then deberia mostrar el tablero
+    
+    Scenario: Nombre jugador.
+        Given visito la pagina jugar
+        Then deberia ver mi nombre de jugador "John"
     
         
