@@ -6,8 +6,8 @@ class Tablero
     def inicializar()
         casillas = Array.new(5){Array.new(5){Casilla.new()}}
         casillas.each { |x| x.each{ |y| y.inicializar} }
-        @tablero= Matrix[*casillas]
-        @tamanio=4
+        @tablero = Matrix[*casillas]
+        @tamanio = 4
     end
 
     def esVacio()
@@ -32,11 +32,10 @@ class Tablero
         return resultado
     end
 
-    def marcar(x, y, lado, color)
-        x = x-1
-        y = y-1
-
-        case lado
+    def marcar(x, y, direccion, color)
+        x = x - 1
+        y = y - 1
+        case direccion
             when "derecho"
                 @tablero[y, x].marcarDerecho()
                 if(x != @tamanio)
@@ -55,17 +54,17 @@ class Tablero
             when "inferior"
                 @tablero[y, x].marcarInferior()
                 if(y != @tamanio)
-                    @tablero[y+1, x].marcarSuperior()
+                    @tablero[y+1, x].marcarSuperior()   
                 end
         end
-        pintarCasilla(x,y,color)
+        pintarCasilla(x, y, color)
     end
 
-    def ver(x, y, lado)
+    def ver(x, y, direccion)
         x = x-1
         y = y-1
         resultado = ""
-        case lado
+        case direccion
             when "derecho"
                 resultado = @tablero[y, x].derecho()
             when "izquierdo"
@@ -124,22 +123,22 @@ class Tablero
         filaPintada = "  <tr> "
         ultimaFila = "  <tr> "
 
-        @tablero.each do |i|
+        @tablero.each do |casilla|
             filaPuntos = filaPuntos + casillaPunto
-            if(i.superior())
+            if(casilla.superior())
                 filaPuntos = filaPuntos + casillaLineaHorizontal
             else
                 filaPuntos = filaPuntos + casillaEnBlanco
             end
-            if(i.izquierdo())
+            if(casilla.izquierdo())
                 filaPintada = filaPintada + casillaLineaVertical
             else
                 filaPintada = filaPintada + casillaEnBlanco
             end
-            filaPintada = filaPintada + i.generarHTML()
+            filaPintada = filaPintada + casilla.generarHTML()
             if(numeroFila == @tamanio)
                 ultimaFila = ultimaFila + casillaPunto
-                if(i.inferior())
+                if(casilla.inferior())
                     ultimaFila = ultimaFila + casillaLineaHorizontal
                 else 
                     ultimaFila = ultimaFila + casillaEnBlanco
@@ -147,7 +146,7 @@ class Tablero
 
             end
             if(multiploTamanio(numeroCasilla))
-                if(i.derecho())
+                if(casilla.derecho())
                     filaPintada = filaPintada + casillaLineaVertical
                 else
                     filaPintada = filaPintada + casillaEnBlanco
@@ -161,7 +160,7 @@ class Tablero
                 filaPintada = "  <tr> "
             end
            
-            numeroCasilla = numeroCasilla+1
+            numeroCasilla = numeroCasilla + 1
 
         end
         ultimaFila = ultimaFila + casillaPunto
