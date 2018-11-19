@@ -32,6 +32,12 @@ class Tablero
         return resultado
     end
 
+    def reiniciar()
+        @tablero.each do |i|
+            i.reiniciar()
+        end
+    end
+
     def marcar(x, y, direccion, color)
         x = x - 1
         y = y - 1

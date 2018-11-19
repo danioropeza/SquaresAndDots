@@ -57,6 +57,11 @@ describe Tablero do
         @tablero.marcar(2,3,"derecho","blue")
         expect(@tablero.estaPintado(2,3)).to eq true 
      end
-     
+
+     it "Deberia devolver vacio igual a 'true' cuando se reinicie el tablero al reiniciarse la partida " do
+        @tablero.reiniciar()
+        expect(@tablero.esVacio()).to eq true
+     end
+
 
 end

@@ -5,7 +5,6 @@ class Casilla
         @derecho=false
         @izquierdo=false
         @color= "#ffffff"
-        @codigo=""
     end
 
     def esCasillaNula()        
@@ -61,5 +60,9 @@ class Casilla
     end
     def generarHTML()
         return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
+    end
+
+    def reiniciar()
+        inicializar()
     end
 end
