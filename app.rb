@@ -11,7 +11,7 @@ class App < Sinatra::Base
 
     @@tablero = Tablero.new()
     @@tablero.inicializar()
-    @@turno = 0
+    @@turno = 1
 
     get '/' do
         erb:inicio
@@ -56,6 +56,8 @@ class App < Sinatra::Base
         erb:juego
     end
 
+   
+
     post '/nuevaJugada' do
         if(@@turno%2 == 0)
             @jugadorAntiguoColor = @@color2
@@ -70,5 +72,30 @@ class App < Sinatra::Base
         @@tablero.marcar(x, y, direccion, @jugadorAntiguoColor)    
         @@turno = @@turno + 1
         redirect "/juego"
+    end
+
+    get '/reiniciar' do
+
+        @@tablero.reiniciar()
+        @@turno=1
+        if(@@turno%2 != 0)
+            @jugadorActual = @@nombre1
+            @jugadorActualColor = @@color1
+        else
+            @jugadorActual = @@nombre2
+            @jugadorActualColor = @@color2
+        end
+        
+        @jugador1 = @@nombre1
+        @jugador2 = @@nombre2
+
+        @colorJugador1 = @@color1
+        @colorJugador2 = @@color2
+
+        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)*2
+        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)*2
+
+        @bodyTablero = @@tablero.generarHTMLTabla()
+        erb:juego
     end
 end
