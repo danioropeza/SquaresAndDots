@@ -3,11 +3,11 @@ require "./lib/casilla"
 
 class Tablero
 
-    def inicializar()
-        casillas = Array.new(5){Array.new(5){Casilla.new()}}
+    def inicializar(tamano)
+        casillas = Array.new(tamano){Array.new(tamano){Casilla.new()}}
         casillas.each { |x| x.each{ |y| y.inicializar} }
         @tablero = Matrix[*casillas]
-        @tamanio = 4
+        @tamanio = tamano - 1
     end
 
     def esVacio()
@@ -24,7 +24,7 @@ class Tablero
     def esLleno()
         resultado = true
         @tablero.each do |i|
-            if(i.color == "#ffffff")
+            if(!i.esCasillaPintada())
                 resultado = false
                 break
             end
@@ -32,9 +32,9 @@ class Tablero
         return resultado
     end
 
-    def reiniciar()
+    def reiniciarTablero()
         @tablero.each do |i|
-            i.reiniciar()
+            i.reiniciarCasilla()
         end
     end
 
@@ -66,10 +66,10 @@ class Tablero
         pintarCasilla(x, y, color)
     end
 
-    def ver(x, y, direccion)
-        x = x-1
-        y = y-1
-        resultado = ""
+    def verLadoDeLaCasilla(x, y, direccion)
+        x = x - 1
+        y = y - 1
+        resultado = false
         case direccion
             when "derecho"
                 resultado = @tablero[y, x].derecho()
@@ -99,11 +99,11 @@ class Tablero
         return cantidad
     end
 
-    def estaPintado(x, y)
-        x = x-1
-        y = y-1
+    def estaPintadaLaCasilla(x, y)
+        x = x - 1
+        y = y - 1
         resultado = true
-        if(@tablero[y, x].color() == "#ffffff")
+        if(!@tablero[y, x].esCasillaPintada())
             resultado = false
         end
         return resultado

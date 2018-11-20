@@ -63,4 +63,10 @@ describe Casilla do
         @casilla.pintar("0000ff")
         expect(@casilla.generarHTML()).to eq (" <td width='25px' height='25px' bgcolor='0000ff'></td> ")
     end
+
+    it "Deberia casilla ser nula despues de reiniciarla" do
+        @casilla.marcarDerecho()
+        @casilla.reiniciarCasilla()
+        expect(@casilla.esCasillaNula()).to eq true
+    end
 end
