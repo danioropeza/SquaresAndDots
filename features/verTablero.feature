@@ -5,7 +5,7 @@ Feature: Ver tablero
 
     Scenario: Tablero de juego.
         Given visito la pagina jugar
-        #Then deberia mostrar el tablero
+        Then deberia mostrar el tablero "tabla"
     
     Scenario: Nombre jugador.
         Given visito la pagina jugar
