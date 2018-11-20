@@ -84,7 +84,7 @@ class Tablero
     end
     
     def pintarCasilla(x, y, color)
-        if(@tablero[y, x].esCasillaMarcada())
+        if(@tablero[y, x].esCasillaPintada())
             @tablero[y, x].pintar(color)
         end
     end
