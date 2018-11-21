@@ -64,7 +64,7 @@ class Casilla
         return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
     end
 
-    def reiniciar()
+    def reiniciarCasilla()
         inicializar()
     end
 end

@@ -10,7 +10,7 @@ class App < Sinatra::Base
     @@color2=""
 
     @@tablero = Tablero.new()
-    @@tablero.inicializar()
+    @@tablero.inicializar(5)
     @@turno = 1
 
     get '/' do
@@ -59,24 +59,24 @@ class App < Sinatra::Base
    
 
     post '/nuevaJugada' do
-        if(@@turno%2 == 0)
-            @jugadorAntiguoColor = @@color2
-        else
-            @jugadorAntiguoColor = @@color1
-        end
         x = params[:x].to_i
         y = params[:y].to_i
-        puts x
-        puts y
         direccion = params[:direccion]
-        @@tablero.marcar(x, y, direccion, @jugadorAntiguoColor)    
-        @@turno = @@turno + 1
+        if (!@@tablero.verLadoDeLaCasilla(x, y, direccion))
+            if(@@turno%2 == 0)
+                @jugadorAntiguoColor = @@color2
+            else
+                @jugadorAntiguoColor = @@color1
+            end
+            @@tablero.marcar(x, y, direccion, @jugadorAntiguoColor)    
+            @@turno = @@turno + 1
+        end
         redirect "/juego"
     end
 
     get '/reiniciar' do
 
-        @@tablero.reiniciar()
+        @@tablero.reiniciarTablero()
         @@turno=1
         if(@@turno%2 != 0)
             @jugadorActual = @@nombre1
