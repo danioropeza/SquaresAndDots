@@ -76,7 +76,7 @@ class App < Sinatra::Base
 
     get '/reiniciar' do
 
-        @@tablero.reiniciar()
+        @@tablero.reiniciarTablero()
         @@turno=1
         if(@@turno%2 != 0)
             @jugadorActual = @@nombre1
