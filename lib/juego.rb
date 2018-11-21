@@ -29,14 +29,24 @@ class Juego
         return @jugadorEnTurno
     end
     
+    def coordenadasValidas(x,y)
+       resultado=false
+        if(x>0 && x<=@tamanio && y>0 && y<=@tamanio)
+            resultado=true
+        end
+        return resultado
+    end
+
     def jugada(x,y,direccion)
-        if (!@tablero.verLadoDeLaCasilla(x, y, direccion))
-            @tablero.marcar(x,y,direccion, @jugadorEnTurno.color())
-            @turno=@turno+1
-            if(@turno%2!=0)
-                @jugadorEnTurno=@jugador1
-            else
-                @jugadorEnTurno=@jugador2
+        if(coordenadasValidas(x,y))
+            if (!@tablero.verLadoDeLaCasilla(x, y, direccion) )
+                @tablero.marcar(x,y,direccion, @jugadorEnTurno.color())
+                @turno=@turno+1
+                if(@turno%2!=0)
+                    @jugadorEnTurno=@jugador1
+                else
+                    @jugadorEnTurno=@jugador2
+                end
             end
         end
     end

@@ -8,7 +8,8 @@ describe Juego do
         @jugador2= Jugador.new()
         @jugador2.ingresarNombre("Pepe")
         @jugador2.ingresarColor("#00ff00")
-        @juego.inicializar(5,@jugador1,@jugador2)
+        @tamanio=5
+        @juego.inicializar(@tamanio,@jugador1,@jugador2)
     end
 
     it "Deberia crear un tablero vacio al crear un juego nuevo." do
@@ -30,6 +31,11 @@ describe Juego do
         expect(@juego.jugadorEnTurno()).to eq @jugador2
     end
 
+    it "Deberia seguir siendo el turno del jugador2 despues de que realiza una jugada en una casilla invalida que exceda el tamaño" do
+        @juego.jugada(1,1, "derecho")
+        @juego.jugada(1,9, "derecho")
+        expect(@juego.jugadorEnTurno()).to eq @jugador2
+    end
 
 
 end
