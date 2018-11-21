@@ -37,5 +37,12 @@ describe Juego do
         expect(@juego.jugadorEnTurno()).to eq @jugador2
     end
 
+    it "Deberia estar el tablero vacio despues de reinicar la partida" do
+        @juego.jugada(1,1, "derecho")
+        @juego.jugada(1,9, "derecho")
+        @juego.reiniciarPartida()
+        expect(@juego.estaElTableroVacio()).to eq true
+    end
+
 
 end

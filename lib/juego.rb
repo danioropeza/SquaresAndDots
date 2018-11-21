@@ -51,6 +51,10 @@ class Juego
         end
     end
 
+    def reiniciarPartida()
+        @tablero.reiniciarTablero()
+    end
+
 
     
 
