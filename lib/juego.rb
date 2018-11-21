@@ -30,13 +30,14 @@ class Juego
     end
     
     def jugada(x,y,direccion)
-        
-        @tablero.marcar(x,y,direccion, @jugadorEnTurno.color())
-        @turno=@turno+1
-        if(@turno%2!=0)
-            @jugadorEnTurno=@jugador1
-        else
-            @jugadorEnTurno=@jugador2
+        if (!@tablero.verLadoDeLaCasilla(x, y, direccion))
+            @tablero.marcar(x,y,direccion, @jugadorEnTurno.color())
+            @turno=@turno+1
+            if(@turno%2!=0)
+                @jugadorEnTurno=@jugador1
+            else
+                @jugadorEnTurno=@jugador2
+            end
         end
     end
 

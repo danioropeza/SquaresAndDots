@@ -24,7 +24,11 @@ describe Juego do
         expect(@juego.jugadorEnTurno()).to eq @jugador2
     end
 
-
+    it "Deberia seguir siendo el turno del jugador2 despues de que realiza una jugada en una casilla marcada" do
+        @juego.jugada(1,1, "derecho")
+        @juego.jugada(1,1, "derecho")
+        expect(@juego.jugadorEnTurno()).to eq @jugador2
+    end
 
 
 
