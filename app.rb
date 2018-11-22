@@ -10,6 +10,7 @@ class App < Sinatra::Base
     @@color2=""
 
     @@tablero = Tablero.new()
+    @@tablero.inicializar(5)
     @@dimension    
 
     @@turno = 1
