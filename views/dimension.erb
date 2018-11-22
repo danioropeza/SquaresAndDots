@@ -8,14 +8,12 @@
   <body>
     <div class="container" align="center">
         <div class="page-header center"><h3>Jugador 2</h3></div>
-        <form  class="form-inline" method="POST" action="/dimension">
-            <div class="form-group" id="jugador" name="jugador" >            
+        <form  class="form-inline" method="POST" action="/configuracionInicialPartida">
+            <div class="form-group" >            
                 <br />
-                <label for="nombre1">Nombre:</label>
-                <input class="form-control" type="text" id='nombre' name='nombre' value="Jugador2" required>
+                <label>Dimension del tablero: </label>
                 <br /><br />
-                <label> Color: </label>            
-                <input type="color" id='color' name='color' value='#0101DF' >
+                <input type="number" class="form-control" id="dimension" name="dimension" min="5" max="10" required/>
                 <br /><br />
             </div>
             <br/><br />

@@ -11,6 +11,8 @@ class App < Sinatra::Base
 
     @@tablero = Tablero.new()
     @@tablero.inicializar(5)
+    @@dimension    
+
     @@turno = 1
 
     get '/' do
@@ -28,9 +30,16 @@ class App < Sinatra::Base
         erb:jugador2
     end
     
-    post '/configuracionInicialPartida' do
+    post '/dimension' do
         @@nombre2 = (params[:nombre])
         @@color2 = (params[:color])
+       
+        erb:dimension
+    end
+    
+    post '/configuracionInicialPartida' do
+        @@dimension = (params[:dimension])
+        @@tablero.inicializar(@@dimension.to_i)
         redirect "/juego"
     end
 
@@ -92,8 +101,8 @@ class App < Sinatra::Base
         @colorJugador1 = @@color1
         @colorJugador2 = @@color2
 
-        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)*2
-        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)*2
+        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)
+        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)
 
         @bodyTablero = @@tablero.generarHTMLTabla()
         erb:juego
