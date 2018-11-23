@@ -9,7 +9,6 @@ Then("deberia  poder ingresar mi nombre en el campo {string}") do |string|
   Then("deberia  poder seleccionar un color en el campo {string}") do |string|
     find_field(string).value 
     fill_in(string, with: '#FF0000')
-
   end
   
   When("introuduzco  mis datos") do

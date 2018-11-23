@@ -10,5 +10,3 @@ Feature: Ver tablero
     Scenario: Nombre jugador.
         Given visito la pagina jugar
         Then deberia ver mi nombre de jugador "John"
-    
-        

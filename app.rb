@@ -1,19 +1,10 @@
 require 'sinatra'
 require "./lib/tablero"
 require "./lib/jugador"
+require "./lib/juego"
+
 class App < Sinatra::Base
-    
-    @@nombre1=""
-    @@nombre2=""
-
-    @@color1=""
-    @@color2=""
-
-    @@tablero = Tablero.new()
-    @@tablero.inicializar(5)
-    @@dimension    
-
-    @@turno = 1
+    @@juego = Juego.new(5, "John", "Pedro", "#0000ff", "#00ff00")
 
     get '/' do
         erb:inicio
@@ -24,44 +15,30 @@ class App < Sinatra::Base
     end
 
     post '/jugador2' do
-        @@nombre1 = (params[:nombre])
-        @@color1 = (params[:color])
-       
+        @@juego.ingresarJugador1(params[:nombre], params[:color])
         erb:jugador2
     end
     
     post '/dimension' do
-        @@nombre2 = (params[:nombre])
-        @@color2 = (params[:color])
-       
+        @@juego.ingresarJugador2(params[:nombre], params[:color])
         erb:dimension
     end
     
     post '/configuracionInicialPartida' do
-        @@dimension = (params[:dimension])
-        @@tablero.inicializar(@@dimension.to_i)
+        @@juego.ingresarTamano(params[:dimension].to_i)
         redirect "/juego"
     end
 
     get '/juego' do  
-        if(@@turno%2 != 0)
-            @jugadorActual = @@nombre1
-            @jugadorActualColor = @@color1
-        else
-            @jugadorActual = @@nombre2
-            @jugadorActualColor = @@color2
-        end
-        
-        @jugador1 = @@nombre1
-        @jugador2 = @@nombre2
-
-        @colorJugador1 = @@color1
-        @colorJugador2 = @@color2
-
-        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)*2
-        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)*2
-
-        @bodyTablero = @@tablero.generarHTMLTabla()
+        @nombreDeTurno = @@juego.nombreDeTurno()	        
+        @colorDeTurno = @@juego.colorDeTurno()	        
+        @nombre1 = @@juego.nombre1()	        
+        @nombre2 = @@juego.nombre2()	
+        @colorJugador1 = @@juego.color1()	        
+        @colorJugador2 = @@juego.color2()	
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1()) * 2
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2()) * 2
+        @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
     end
 
@@ -71,40 +48,15 @@ class App < Sinatra::Base
         x = params[:x].to_i
         y = params[:y].to_i
         direccion = params[:direccion]
-        if (!@@tablero.verLadoDeLaCasilla(x, y, direccion))
-            if(@@turno%2 == 0)
-                @jugadorAntiguoColor = @@color2
-            else
-                @jugadorAntiguoColor = @@color1
-            end
-            @@tablero.marcar(x, y, direccion, @jugadorAntiguoColor)    
-            @@turno = @@turno + 1
-        end
+        @@juego.jugada(x, y, direccion)
         redirect "/juego"
     end
 
     get '/reiniciar' do
-
-        @@tablero.reiniciarTablero()
-        @@turno=1
-        if(@@turno%2 != 0)
-            @jugadorActual = @@nombre1
-            @jugadorActualColor = @@color1
-        else
-            @jugadorActual = @@nombre2
-            @jugadorActualColor = @@color2
-        end
-        
-        @jugador1 = @@nombre1
-        @jugador2 = @@nombre2
-
-        @colorJugador1 = @@color1
-        @colorJugador2 = @@color2
-
-        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)
-        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)
-
-        @bodyTablero = @@tablero.generarHTMLTabla()
+        @@juego.reiniciarPartida()
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
+        @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
     end
 end

@@ -2,7 +2,6 @@ require "./lib/casilla"
 describe Casilla do
     before (:each) do
         @casilla=Casilla.new()
-        @casilla.inicializar()
     end
 
     it "Deberia ser una casilla nula cuando se la crea" do

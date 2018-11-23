@@ -1,5 +1,5 @@
 class Casilla
-    def inicializar()
+    def initialize()
         @superior= false
         @inferior= false
         @derecho = false
@@ -23,34 +23,27 @@ class Casilla
         return resultado
     end
 
-    def color()
-        return @color
-    end
-
-    def izquierdo()
-        return @izquierdo
-    end
-
-    def derecho()
-        return @derecho
-    end
-    def superior()
-        return @superior
-    end
-    def inferior()
-        return @inferior
-    end
-
     def pintar(colorcito)
         if @color == "#ffffff"
             @color = colorcito
         end
     end
 
+    def generarHTML()
+        return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
+    end
+
+    def reiniciarCasilla()
+        @superior= false
+        @inferior= false
+        @derecho = false
+        @izquierdo = false
+        @color = "#ffffff"
+    end
+
     def marcarIzquierdo()
         @izquierdo = true
     end
-
     def marcarDerecho()
         @derecho = true
     end
@@ -60,11 +53,19 @@ class Casilla
     def marcarInferior()
         @inferior = true
     end
-    def generarHTML()
-        return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
+    def color()
+        return @color
     end
-
-    def reiniciarCasilla()
-        inicializar()
+    def izquierdo()
+        return @izquierdo
+    end
+    def derecho()
+        return @derecho
+    end
+    def superior()
+        return @superior
+    end
+    def inferior()
+        return @inferior
     end
 end
