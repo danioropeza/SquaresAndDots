@@ -4,9 +4,7 @@ require "./lib/jugador"
 require "./lib/juego"
 
 class App < Sinatra::Base
-    @@juego = Juego.new()
-    @@tablero = Tablero.new()
-    @@turno = 1
+    @@juego = Juego.new(5, "John", "Pedro", "#0000ff", "#00ff00")
 
     get '/' do
         erb:inicio
@@ -27,20 +25,20 @@ class App < Sinatra::Base
     end
     
     post '/configuracionInicialPartida' do
-        @@tablero.ingresarTamano(params[:dimension].to_i)
+        @@juego.ingresarTamano(params[:dimension].to_i)
         redirect "/juego"
     end
 
     get '/juego' do  
-        if(@@turno%2 != 0)
-            @@juego.ingresarJugadorEnTurno(@@juego.jugador1())
-        else
-            @@juego.ingresarJugadorEnTurno(@@juego.jugador2())
-        end
-
-        @puntaje1 = @@tablero.contarCasillasJugador(@@juego.jugador1.color()) * 2
-        @puntaje2 = @@tablero.contarCasillasJugador(@@juego.jugador2.color()) * 2
-        @bodyTablero = @@tablero.generarHTMLTabla()
+        @nombreDeTurno = @@juego.nombreDeTurno()	        
+        @colorDeTurno = @@juego.colorDeTurno()	        
+        @nombre1 = @@juego.nombre1()	        
+        @nombre2 = @@juego.nombre2()	
+        @colorJugador1 = @@juego.color1()	        
+        @colorJugador2 = @@juego.color2()	
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1()) * 2
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2()) * 2
+        @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
     end
 
@@ -50,30 +48,15 @@ class App < Sinatra::Base
         x = params[:x].to_i
         y = params[:y].to_i
         direccion = params[:direccion]
-        if (!@@tablero.verLadoDeLaCasilla(x, y, direccion))
-            if(@@turno%2 == 0)
-                @@tablero.marcar(x, y, direccion, @@juego.jugador2.color())
-            else
-                @@tablero.marcar(x, y, direccion, @@juego.jugador1.color())
-            end
-            @@turno = @@turno + 1
-        end
+        @@juego.jugada(x, y, direccion)
         redirect "/juego"
     end
 
     get '/reiniciar' do
-        @@tablero.reiniciarTablero()
-        @@turno = 1
-        if(@@turno%2 != 0)
-            @@juego.ingresarJugadorEnTurno(@@juego.jugador1())
-        else
-            @@juego.ingresarJugadorEnTurno(@@juego.jugador2())
-        end
-
-        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)
-        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)
-
-        @bodyTablero = @@tablero.generarHTMLTabla()
+        @@juego.reiniciarPartida()
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
+        @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
     end
 end

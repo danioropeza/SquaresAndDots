@@ -80,6 +80,14 @@ describe Tablero do
         @tablero.reiniciarTablero()
         expect(@tablero.esVacio()).to eq true
      end
+     
+    it "Deberia devolver '1' cuando el jugador haya pintado una casilla" do
+        @tablero.marcar(1, 1, "superior", "0000ff") 
+        @tablero.marcar(1, 1, "inferior", "0000ff")
+        @tablero.marcar(1, 1, "derecho", "0000ff") 
+        @tablero.marcar(1, 1, "izquierdo", "0000ff")
+        expect(@tablero.contarCasillasJugador("0000ff")).to eq 1
+    end
 
 
 end

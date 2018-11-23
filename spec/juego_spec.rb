@@ -22,10 +22,20 @@ describe Juego do
         expect(@juego.jugadorEnTurnoColor()).to eq @jugador2.color()
     end
 
-    it "DTest" do
-        @juego.jugada(1,1, "derecho")
-        expect(@juego.jugadorEnTurnoNombre()).to eq @jugador2.nombre()
-        expect(@juego.jugadorEnTurnoColor()).to eq @jugador2.color()
+    it "Deberia devolver 0 cuando el jugador no haya pintado ninguna casilla" do
+        expect(@juego.contarCasillasJugador("#0000ff")).to eq 0
+    end
+
+    it "Deberia devolver '2' cuando el jugador haya pintado dos casilla" do
+        @juego.jugada(1, 1, "superior") #jugador 1
+        @juego.jugada(1, 1, "inferior") #jugador 1
+        @juego.jugada(1, 1, "derecho") #jugador 1
+        @juego.jugada(1, 1, "izquierdo") #jugador 1
+        @juego.jugada(3, 3, "superior") #jugador 2
+        @juego.jugada(3, 3, "inferior") #jugador 2
+        @juego.jugada(3, 3, "derecho") #jugador 2
+        @juego.jugada(3, 3, "izquierdo") #jugador 2
+        expect(@juego.contarCasillasJugador("#00ff00")).to eq 2
     end
 
     it "Deberia seguir siendo el turno del jugador2 despues de que realiza una jugada en una casilla marcada" do
@@ -48,6 +58,4 @@ describe Juego do
         @juego.reiniciarPartida()
         expect(@juego.estaElTableroVacio()).to eq true
     end
-
-
 end

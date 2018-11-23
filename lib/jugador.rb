@@ -4,6 +4,7 @@ class Jugador
         @nombre = nombre unless nombre.nil?
         @color = color unless color.nil?
     end
+    
     def ingresarNombre(nuevoNombre)
         @nombre = nuevoNombre
     end

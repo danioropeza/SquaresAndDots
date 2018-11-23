@@ -10,14 +10,12 @@ Given("visito la pagina primer jugador") do
   Then("deberia poder seleccionar un color en el campo {string}") do |string|
     find_field(string).value
     fill_in(string, with: '#FF0000')
-
   end
   
   When("introuduzco mis datos") do
     fill_in('nombre', with: 'John')
     fill_in('color', with: '#FF0000')
-
-end
+  end
   
   When("presiono el boton  {string}") do |string|
     click_button(string)
