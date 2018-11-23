@@ -2,10 +2,17 @@ require 'matrix'
 require "./lib/casilla"
 
 class Tablero
+    attr_accessor :tamano
+    def initialize(tamano = nil)
+        if tamano != nil
+            casillas = Array.new(tamano){Array.new(tamano){Casilla.new()}}
+            @tablero = Matrix[*casillas]
+            @tamanio = tamano - 1
+        end
+    end
 
-    def inicializar(tamano)
+    def ingresarTamano(tamano)
         casillas = Array.new(tamano){Array.new(tamano){Casilla.new()}}
-        casillas.each { |x| x.each{ |y| y.inicializar} }
         @tablero = Matrix[*casillas]
         @tamanio = tamano - 1
     end

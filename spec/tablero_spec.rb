@@ -2,8 +2,7 @@ require "./lib/tablero"
 
 describe Tablero do
     before (:each) do
-        @tablero = Tablero.new()
-        @tablero.inicializar(5)
+        @tablero = Tablero.new(5)
     end
 
     it "Deberia el tablero estar vacio cuando se crea" do

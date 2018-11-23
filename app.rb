@@ -1,18 +1,11 @@
 require 'sinatra'
 require "./lib/tablero"
 require "./lib/jugador"
+require "./lib/juego"
+
 class App < Sinatra::Base
-    
-    @@nombre1=""
-    @@nombre2=""
-
-    @@color1=""
-    @@color2=""
-
+    @@juego = Juego.new()
     @@tablero = Tablero.new()
-    @@tablero.inicializar(5)
-    @@dimension    
-
     @@turno = 1
 
     get '/' do
@@ -24,43 +17,29 @@ class App < Sinatra::Base
     end
 
     post '/jugador2' do
-        @@nombre1 = (params[:nombre])
-        @@color1 = (params[:color])
-       
+        @@juego.ingresarJugador1(params[:nombre], params[:color])
         erb:jugador2
     end
     
     post '/dimension' do
-        @@nombre2 = (params[:nombre])
-        @@color2 = (params[:color])
-       
+        @@juego.ingresarJugador2(params[:nombre], params[:color])
         erb:dimension
     end
     
     post '/configuracionInicialPartida' do
-        @@dimension = (params[:dimension])
-        @@tablero.inicializar(@@dimension.to_i)
+        @@tablero.ingresarTamano(params[:dimension].to_i)
         redirect "/juego"
     end
 
     get '/juego' do  
         if(@@turno%2 != 0)
-            @jugadorActual = @@nombre1
-            @jugadorActualColor = @@color1
+            @@juego.ingresarJugadorEnTurno(@@juego.jugador1())
         else
-            @jugadorActual = @@nombre2
-            @jugadorActualColor = @@color2
+            @@juego.ingresarJugadorEnTurno(@@juego.jugador2())
         end
-        
-        @jugador1 = @@nombre1
-        @jugador2 = @@nombre2
 
-        @colorJugador1 = @@color1
-        @colorJugador2 = @@color2
-
-        @puntaje1 = @@tablero.contarCasillasJugador(@@color1)*2
-        @puntaje2 = @@tablero.contarCasillasJugador(@@color2)*2
-
+        @puntaje1 = @@tablero.contarCasillasJugador(@@juego.jugador1.color()) * 2
+        @puntaje2 = @@tablero.contarCasillasJugador(@@juego.jugador2.color()) * 2
         @bodyTablero = @@tablero.generarHTMLTabla()
         erb:juego
     end
@@ -73,33 +52,23 @@ class App < Sinatra::Base
         direccion = params[:direccion]
         if (!@@tablero.verLadoDeLaCasilla(x, y, direccion))
             if(@@turno%2 == 0)
-                @jugadorAntiguoColor = @@color2
+                @@tablero.marcar(x, y, direccion, @@juego.jugador2.color())
             else
-                @jugadorAntiguoColor = @@color1
+                @@tablero.marcar(x, y, direccion, @@juego.jugador1.color())
             end
-            @@tablero.marcar(x, y, direccion, @jugadorAntiguoColor)    
             @@turno = @@turno + 1
         end
         redirect "/juego"
     end
 
     get '/reiniciar' do
-
         @@tablero.reiniciarTablero()
-        @@turno=1
+        @@turno = 1
         if(@@turno%2 != 0)
-            @jugadorActual = @@nombre1
-            @jugadorActualColor = @@color1
+            @@juego.ingresarJugadorEnTurno(@@juego.jugador1())
         else
-            @jugadorActual = @@nombre2
-            @jugadorActualColor = @@color2
+            @@juego.ingresarJugadorEnTurno(@@juego.jugador2())
         end
-        
-        @jugador1 = @@nombre1
-        @jugador2 = @@nombre2
-
-        @colorJugador1 = @@color1
-        @colorJugador2 = @@color2
 
         @puntaje1 = @@tablero.contarCasillasJugador(@@color1)
         @puntaje2 = @@tablero.contarCasillasJugador(@@color2)
