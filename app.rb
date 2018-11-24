@@ -4,7 +4,8 @@ require "./lib/jugador"
 require "./lib/juego"
 
 class App < Sinatra::Base
-    @@juego = Juego.new(5, "John", "Pedro", "#0000ff", "#00ff00")
+    @@juego=Juego.new() 
+    @@existeTamanio=false
 
     get '/' do
         erb:inicio
@@ -14,24 +15,26 @@ class App < Sinatra::Base
         erb:jugador1
     end
 
-    post '/jugador2' do
-        @@juego.ingresarJugador1(params[:nombre], params[:color])
+    get '/jugador2' do
+        jugador1=Jugador.new(params[:nombre],params[:color])
+        @@juego.ingresarJugador1(jugador1)
         erb:jugador2
     end
     
-    post '/dimension' do
-        @@juego.ingresarJugador2(params[:nombre], params[:color])
+    get '/dimension' do
+        jugador2=Jugador.new(params[:nombre],params[:color])
+        @@juego.ingresarJugador2(jugador2)
         erb:dimension
     end
-    
-    post '/configuracionInicialPartida' do
-        @@juego.ingresarTamano(params[:dimension].to_i)
-        redirect "/juego"
-    end
 
-    get '/juego' do  
-        @nombreDeTurno = @@juego.nombreDeTurno()	        
-        @colorDeTurno = @@juego.colorDeTurno()	        
+
+    get '/juego' do
+        if (!@@existeTamanio)
+            @@juego.ingresarTamanio(params[:dimension].to_i)
+            @@existeTamanio=true
+        end
+        @nombreDeTurno = @@juego.jugadorEnTurnoNombre()	        
+        @colorDeTurno = @@juego.jugadorEnTurnoColor()	        
         @nombre1 = @@juego.nombre1()	        
         @nombre2 = @@juego.nombre2()	
         @colorJugador1 = @@juego.color1()	        
@@ -44,7 +47,7 @@ class App < Sinatra::Base
 
    
 
-    post '/nuevaJugada' do
+    get '/nuevaJugada' do
         x = params[:x].to_i
         y = params[:y].to_i
         direccion = params[:direccion]
@@ -54,6 +57,12 @@ class App < Sinatra::Base
 
     get '/reiniciar' do
         @@juego.reiniciarPartida()
+        @nombreDeTurno = @@juego.jugadorEnTurnoNombre()	        
+        @colorDeTurno = @@juego.jugadorEnTurnoColor()	        
+        @nombre1 = @@juego.nombre1()	        
+        @nombre2 = @@juego.nombre2()	
+        @colorJugador1 = @@juego.color1()	        
+        @colorJugador2 = @@juego.color2()	
         @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
         @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
         @bodyTablero = @@juego.generarHTMLTabla()

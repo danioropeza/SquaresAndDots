@@ -13,6 +13,7 @@ class MyWorld
     Sinatra::Application
   end
   
+  
 end
 
 World{MyWorld.new}

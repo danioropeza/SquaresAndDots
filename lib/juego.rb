@@ -56,48 +56,47 @@ class Juego
         @turno = 1
     end
 
-    def ingresarTamano(tamanio)
-        @tamanio = tamanio 
-        Tablero.new(@tamanio)
-    end
-    def ingresarJugador1(nombre1, color1)
-        @jugador1 = Jugador.new(nombre1, color1)
-        @jugadorEnTurno = @jugador1
-    end
-    def ingresarJugador2(nombre2, color2)
-        @jugador2 = Jugador.new(nombre2, color2)
+
+    def ingresarJugador1(jugador1)
+        @jugador1=jugador1
+        @jugadorEnTurno=jugador1
     end
 
+    def ingresarJugador2(jugador2)
+        @jugador2=jugador2
+    end
+    
+    def ingresarTamanio(tamanio)
+        @tablero = Tablero.new(tamanio)
+        @tamanio=tamanio
+    end
     def jugador1()
         return @jugador1
     end
     def jugador2()
         return @jugador2
     end
+    
     def nombre1()
         @jugador1.nombre()
     end
+    
     def nombre2()
         @jugador2.nombre()
     end
-    def nombreDeTurno()
-        @jugadorEnTurno.nombre()
-    end
+    
     def color1()
         @jugador1.color()
     end
+    
     def color2()
         @jugador2.color()
     end
-    def colorDeTurno()
-        @jugadorEnTurno.color()
-    end
-    def ingresarJugadorEnTurno(jugador)
-        @jugadorEnTurno = jugador
-    end
+  
     def contarCasillasJugador(color)
         return @tablero.contarCasillasJugador(color)
     end
+
     def generarHTMLTabla()
         return @tablero.generarHTMLTabla()
     end
