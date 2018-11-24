@@ -4,8 +4,8 @@ require "./lib/jugador"
 require "./lib/juego"
 
 class App < Sinatra::Base
-    @@juego = Juego.new(5, "John", "Pedro", "#0000ff", "#00ff00")
-
+    @@juego 
+    
     get '/' do
         erb:inicio
     end
@@ -14,18 +14,23 @@ class App < Sinatra::Base
         erb:jugador1
     end
 
-    post '/jugador2' do
-        @@juego.ingresarJugador1(params[:nombre], params[:color])
+    get '/jugador2' do
+        @@nombre1=params[:nombre]
+        @@color1=params[:color]
+        
         erb:jugador2
     end
     
-    post '/dimension' do
-        @@juego.ingresarJugador2(params[:nombre], params[:color])
+    get '/dimension' do
+        @@nombre2=params[:nombre]
+        @@color2=params[:color]
         erb:dimension
     end
     
-    post '/configuracionInicialPartida' do
-        @@juego.ingresarTamano(params[:dimension].to_i)
+    get '/configuracionInicialPartida' do
+       
+        @@tamanio = (params[:dimension].to_i)
+        @@juego = Juego.new(@@tamanio , @@nombre1,@@nombre2,@@color1, @@color2)
         redirect "/juego"
     end
 
@@ -44,7 +49,7 @@ class App < Sinatra::Base
 
    
 
-    post '/nuevaJugada' do
+    get '/nuevaJugada' do
         x = params[:x].to_i
         y = params[:y].to_i
         direccion = params[:direccion]

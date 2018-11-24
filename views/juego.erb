@@ -15,7 +15,7 @@
         </table>
     </div>
     <div class="col-md-6" align="left">
-        <form class="form-horizontal" method="GET" action="/reiniciar">
+        <form class="form-horizontal" >
             <fieldset>
                 <div class="form-group">
                     <strong for="nombre" class="control-label col-md-2">Turno</strong>
@@ -43,28 +43,24 @@
                         <p class="form-control-static" style='color: <%= @colorJugador2 %>;' */><%= @nombre2 %><p/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <input class="btn btn-block btn-primary" type="submit" id='Reiniciar' name='Reiniciar' value ='Reiniciar'/>
-                    </div>
-                </div>
+               
             </fieldset>
         </form>
     </div>
     <div class="col-md-7">&nbsp;</div>
     <div class="col-md-12" align="center">
-        <form class="form-horizontal has-default" method="POST" action="/nuevaJugada">
+        <form class="form-horizontal has-default" method="GET" action="/nuevaJugada">
             <fieldset>
                 <div class="form-group">
                     <label for="nombre" class="control-label col-md-3">Fila:</label>
                     <div class="col-md-5">
-                        <input type="number" class="form-control" id="y" name="y" min="1" max="5"/>
+                        <input type="number" class="form-control" id="y" name="y" min="1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="nombre" class="control-label col-md-3">Columna:</label>
                     <div class="col-md-5">
-                        <input type="number" class="form-control" id="x" name="x" min="1" max="5"/>
+                        <input type="number" class="form-control" id="x" name="x" min="1" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -88,6 +84,9 @@
         </form>
         <br />
     </div>
-    
+    <a id="Reiniciar" href="/reiniciar">Reiniciar Partida</a>
+   # <form class="form-group" method="GET" action="/reiniciar">
+#<input id='Reiniciar' name='Reiniciar' class="btn btn-primary" type="submit" value ='Reiniciar'>
+#</form>
   </body>
 </html> 

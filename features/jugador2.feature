@@ -5,15 +5,15 @@ Feature: Jugador2
 
    
     Scenario: Ingreso de nombre 
-        Given visito la pagina primer jugador
+        Given visito la pagina segundo jugador
         Then deberia poder ingresar mi nombre en el campo "nombre"
 
     Scenario: Seleccion de color 
-        Given visito la pagina primer jugador
+        Given visito la pagina segundo jugador
         Then deberia poder seleccionar un color en el campo "color"
 
     Scenario: Boton de confirmación
-        Given visito la pagina primer jugador
+        Given visito la pagina segundo jugador
         When introuduzco mis datos
         And presiono el boton  "Ok"
-        Then deberia ver la pagina con el titulo "Jugador 2"
+        Then deberia ver la pagina con el titulo "Dimensiones"

@@ -56,17 +56,7 @@ class Juego
         @turno = 1
     end
 
-    def ingresarTamano(tamanio)
-        @tamanio = tamanio 
-        Tablero.new(@tamanio)
-    end
-    def ingresarJugador1(nombre1, color1)
-        @jugador1 = Jugador.new(nombre1, color1)
-        @jugadorEnTurno = @jugador1
-    end
-    def ingresarJugador2(nombre2, color2)
-        @jugador2 = Jugador.new(nombre2, color2)
-    end
+    
 
     def jugador1()
         return @jugador1
