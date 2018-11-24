@@ -5,5 +5,5 @@ Feature: Reiniciar partida
    
     Scenario: Boton reiniciar
         Given visito la pagina jugar
-         #When presiono el boton   "Reiniciar"
-         #Then el puntaje deberia ser 0
+        When presiono el boton "Reiniciar"
+        Then el puntaje deberia ser 0

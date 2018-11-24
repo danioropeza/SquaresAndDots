@@ -4,7 +4,7 @@ require "./lib/jugador"
 require "./lib/juego"
 
 class App < Sinatra::Base
-    @@juego 
+    @@juego=Juego.new() 
     
     get '/' do
         erb:inicio
@@ -15,28 +15,26 @@ class App < Sinatra::Base
     end
 
     get '/jugador2' do
-        @@nombre1=params[:nombre]
-        @@color1=params[:color]
-        
+        jugador1=Jugador.new(params[:nombre],params[:color])
+        @@juego.ingresarJugador1(jugador1)
         erb:jugador2
     end
     
     get '/dimension' do
-        @@nombre2=params[:nombre]
-        @@color2=params[:color]
+        jugador2=Jugador.new(params[:nombre],params[:color])
+        @@juego.ingresarJugador2(jugador2)
         erb:dimension
     end
     
     get '/configuracionInicialPartida' do
        
-        @@tamanio = (params[:dimension].to_i)
-        @@juego = Juego.new(@@tamanio , @@nombre1,@@nombre2,@@color1, @@color2)
+        @@juego.ingresarTamanio(params[:dimension].to_i)
         redirect "/juego"
     end
 
     get '/juego' do  
-        @nombreDeTurno = @@juego.nombreDeTurno()	        
-        @colorDeTurno = @@juego.colorDeTurno()	        
+        @nombreDeTurno = @@juego.jugadorEnTurnoNombre()	        
+        @colorDeTurno = @@juego.jugadorEnTurnoColor()	        
         @nombre1 = @@juego.nombre1()	        
         @nombre2 = @@juego.nombre2()	
         @colorJugador1 = @@juego.color1()	        
@@ -59,6 +57,12 @@ class App < Sinatra::Base
 
     get '/reiniciar' do
         @@juego.reiniciarPartida()
+        @nombreDeTurno = @@juego.jugadorEnTurnoNombre()	        
+        @colorDeTurno = @@juego.jugadorEnTurnoColor()	        
+        @nombre1 = @@juego.nombre1()	        
+        @nombre2 = @@juego.nombre2()	
+        @colorJugador1 = @@juego.color1()	        
+        @colorJugador2 = @@juego.color2()	
         @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
         @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
         @bodyTablero = @@juego.generarHTMLTabla()
