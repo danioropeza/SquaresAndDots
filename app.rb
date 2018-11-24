@@ -5,7 +5,8 @@ require "./lib/juego"
 
 class App < Sinatra::Base
     @@juego=Juego.new() 
-    
+    @@existeTamanio=false
+
     get '/' do
         erb:inicio
     end
@@ -25,14 +26,13 @@ class App < Sinatra::Base
         @@juego.ingresarJugador2(jugador2)
         erb:dimension
     end
-    
-    get '/configuracionInicialPartida' do
-       
-        @@juego.ingresarTamanio(params[:dimension].to_i)
-        redirect "/juego"
-    end
 
-    get '/juego' do  
+
+    get '/juego' do
+        if (!@@existeTamanio)
+            @@juego.ingresarTamanio(params[:dimension].to_i)
+            @@existeTamanio=true
+        end
         @nombreDeTurno = @@juego.jugadorEnTurnoNombre()	        
         @colorDeTurno = @@juego.jugadorEnTurnoColor()	        
         @nombre1 = @@juego.nombre1()	        
