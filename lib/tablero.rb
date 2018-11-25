@@ -147,7 +147,7 @@ class Tablero
             filaPintada = filaPintada + casilla.generarCasillaPintadaYLadoIzquierdo()
 
             if(numeroFila-1 == @tamanio)
-                ultimaFila = ultimaFila + casilla.generarUltimaFilaPuntos()
+                ultimaFila = ultimaFila + casilla.generarLadoInferiorFilaPuntos()
             end
 
             if(ultimaColumna(numeroCasilla))
@@ -161,7 +161,7 @@ class Tablero
             numeroCasilla = numeroCasilla + 1
 
         end
-        ultimaFila = ultimaFila + casilla.casillaPunto()
+        ultimaFila = ultimaFila + "<td><img src='images/punto.jpg'/></td>" 
         ultimaFila = ultimaFila + "  </tr> "
         bodyTabla = bodyTabla + ultimaFila + " </tbody> "
         return bodyTabla

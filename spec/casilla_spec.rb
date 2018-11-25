@@ -102,4 +102,13 @@ describe Casilla do
         expect(@casilla.generarCasillaPintadaYLadoIzquierdo).to eq (@casilla.casillaLineaVertical()+@casilla.generarHTMLCasilla())
     end
 
+    it "Deberia devolver  un punto y espacio en blanco cuando inferior de la casilla sea false " do
+        expect(@casilla.generarLadoInferiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaEnBlanco())
+    end
+
+    it "Deberia devolver  un punto y linea horizontal cuando superior de la casilla sea true " do
+        @casilla.marcarInferior()
+        expect(@casilla.generarLadoInferiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaLineaHorizontal())
+    end
+
 end

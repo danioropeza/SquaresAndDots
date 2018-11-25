@@ -104,7 +104,7 @@ class Casilla
         return filaPintada
     end
 
-    def generarUltimaFilaPuntos()
+    def generarLadoInferiorFilaPuntos()
         ultimaFila=""
         ultimaFila = ultimaFila + casillaPunto()
         if(inferior())
