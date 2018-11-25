@@ -58,4 +58,50 @@ describe Juego do
         @juego.reiniciarPartida()
         expect(@juego.estaElTableroVacio()).to eq true
     end
+
+    it "Deberia terminar el juego cuando todas las casillas esten pintadas" do
+        for i in 1..5 do
+            for j in 1..5 do
+                @juego.jugada(i, j, "izquierdo")
+                @juego.jugada(i, j, "derecho")
+                @juego.jugada(i, j, "superior")
+                @juego.jugada(i, j, "inferior")
+            end
+        end
+        expect(@juego.terminoElJuego()).to eq true
+    end
+
+    it "Deberia devolver el ganador del juego" do
+        for i in 1..5 do
+            for j in 1..5 do
+                @juego.jugada(i, j, "izquierdo")
+                @juego.jugada(i, j, "derecho")
+                @juego.jugada(i, j, "superior")
+                @juego.jugada(i, j, "inferior")
+            end
+        end
+        expect(@juego.ganadorDelJuego()).to eq @juego.jugador2
+    end
+
+    it "Deberia devolver empate cuando los puntajes de los 2 jugadores son iguales" do
+        @juego.ingresarTamanio(2)
+
+        @juego.jugada(1, 1, "izquierdo")
+        @juego.jugada(1, 1, "derecho")
+        @juego.jugada(1, 1, "superior")
+        @juego.jugada(1, 1, "inferior") 
+
+        @juego.jugada(2, 1, "izquierdo")
+        @juego.jugada(2, 1, "derecho")
+        @juego.jugada(2, 1, "superior")
+        @juego.jugada(2, 1, "inferior")
+
+        @juego.jugada(1, 2, "inferior")
+        @juego.jugada(2, 2, "inferior")
+        @juego.jugada(1, 2, "izquierda")
+        @juego.jugada(1, 2, "derecha")
+
+        @juego.jugada(2, 2, "derecho")
+        expect(@juego.ganadorDelJuego()).to eq nil
+    end
 end

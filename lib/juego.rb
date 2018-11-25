@@ -100,4 +100,30 @@ class Juego
     def generarHTMLTabla()
         return @tablero.generarHTMLTabla()
     end
+
+    def terminoElJuego()
+        return @tablero.esLleno()
+    end
+    
+    def resultadoGanador()
+        resultado = 1
+        if(@tablero.contarCasillasJugador(@jugador2.color()) == @tablero.contarCasillasJugador(@jugador1.color()))
+            resultado =  "0"
+        elsif (@tablero.contarCasillasJugador(@jugador2.color()) > @tablero.contarCasillasJugador(@jugador1.color()))
+            resultado =  "2"
+        end
+        return resultado
+    end
+
+    def ganadorDelJuego()
+        ganador = nil
+        case resultadoGanador()
+            when "1"
+                ganador = @jugador1
+            when "2"
+                ganador = @jugador2
+        end
+        return ganador
+    end
+
 end

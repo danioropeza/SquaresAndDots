@@ -1,3 +1,15 @@
 <p>Gano el jugador:</p>
-<p/><%= @ganador %>
-        <p/> 
+<p style='color: <%= @colorGanador %>;' /><%= @nombreGanador %><p/>   
+
+<p>Resultados: </p>
+<label style='color: <%= @colorJugador1 %>;' /><%= @nombre1 %><label/>
+<label/><%= @puntaje1 %></label>
+<br />
+<label style='color: <%= @colorJugador2 %>;' /><%= @nombre2 %><label/>
+<label/><%= @puntaje2 %></label>
+
+<form action="/">
+    <button>
+        Volver a jugar
+    </button>
+</form>

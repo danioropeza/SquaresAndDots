@@ -53,21 +53,25 @@ class Tablero
                 @tablero[y, x].marcarDerecho()
                 if(x != @tamanio)
                     @tablero[y, x+1].marcarIzquierdo()
+                    pintarCasilla(x + 1, y, color)
                 end
             when "izquierdo"
                 @tablero[y, x].marcarIzquierdo()            
                 if(x != 0)
                     @tablero[y, x-1].marcarDerecho()
+                    pintarCasilla(x - 1, y, color)
                 end
             when "superior"
                 @tablero[y, x].marcarSuperior()
                 if(y != 0)
                     @tablero[y-1, x].marcarInferior()
+                    pintarCasilla(x, y-1, color)
                 end
             when "inferior"
                 @tablero[y, x].marcarInferior()
                 if(y != @tamanio)
-                    @tablero[y+1, x].marcarSuperior()   
+                    @tablero[y+1, x].marcarSuperior()
+                    pintarCasilla(x, y+1, color)   
                 end
         end
         pintarCasilla(x, y, color)

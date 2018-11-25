@@ -8,6 +8,9 @@ class App < Sinatra::Base
     @@existeTamanio=false
 
     get '/' do
+        @@juego=Juego.new() 
+        @@existeTamanio=false
+    
         erb:inicio
     end
 
@@ -39,8 +42,8 @@ class App < Sinatra::Base
         @nombre2 = @@juego.nombre2()	
         @colorJugador1 = @@juego.color1()	        
         @colorJugador2 = @@juego.color2()	
-        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1()) * 2
-        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2()) * 2
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
         @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
     end
@@ -52,7 +55,11 @@ class App < Sinatra::Base
         y = params[:y].to_i
         direccion = params[:direccion]
         @@juego.jugada(x, y, direccion)
-        redirect "/juego"
+        if(@@juego.terminoElJuego())
+            redirect "/resultado"
+        else
+            redirect "/juego"
+        end
     end
 
     get '/reiniciar' do
@@ -67,5 +74,23 @@ class App < Sinatra::Base
         @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
         @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
+    end
+
+    get '/resultado' do
+        ganador = @@juego.ganadorDelJuego()
+        if (ganador == nil)
+            @nombreGanador = "Empate!"
+            @colorGanador = "#000000"
+        else
+            @nombreGanador = ganador.nombre()
+            @colorGanador = ganador.color()
+        end
+        @nombre1 = @@juego.nombre1()	        
+        @nombre2 = @@juego.nombre2()	
+        @colorJugador1 = @@juego.color1()	        
+        @colorJugador2 = @@juego.color2()	
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
+        erb:resultado
     end
 end
