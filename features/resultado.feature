@@ -5,4 +5,4 @@ Feature: Puntaje final
 
     Scenario: Mensaje ganador del juego
         Given visito la pagina resultado
-        Then muestro mensaje "Gano el jugador" "John"
+        Then muestro mensaje "Gano el jugador"
