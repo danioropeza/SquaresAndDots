@@ -16,7 +16,7 @@ describe Casilla do
     end
 
     it "Deberia devolver el color blanco '#ffffff' al crear una nueva casilla" do
-        expect(@casilla.color()).to eq "#ffffff"
+        expect(@casilla.color()).to eq "white"
     end
     
     it "Deberia devolver el color azul '#0000ff' al pintar esa casilla" do
@@ -60,7 +60,7 @@ describe Casilla do
 
     it "Deberia generar el html ' <td width='25px' height='25px' bgcolor='0000ff'></td> ' si la casilla tiene el color '0000ff'" do
         @casilla.pintar("0000ff")
-        expect(@casilla.generarHTML()).to eq (" <td width='25px' height='25px' bgcolor='0000ff'></td> ")
+        expect(@casilla.generarHTMLCasilla()).to eq (" <td width='25px' height='25px' bgcolor='0000ff'></td> ")
     end
 
     it "Deberia casilla ser nula despues de reiniciarla" do
@@ -68,4 +68,38 @@ describe Casilla do
         @casilla.reiniciarCasilla()
         expect(@casilla.esCasillaNula()).to eq true
     end
+
+    it "Deberia devolver el siguiente codigo cuando hago una jugada con linea horizontal " do 
+        expect(@casilla.casillaLineaHorizontal()).to eq " <td><img src='images/lineaHorizontal.jpg'/></td> "
+    end
+
+    it "Deberia devolver el siguiente codigo cuando hago una jugada con linea vertical" do
+        expect(@casilla.casillaLineaVertical()).to eq " <td><img src='images/lineaVertical.jpg'/></td> "
+    end
+    it "Deberia devolver el siguiente codigo para visualizar los puntos del tablero" do
+        expect(@casilla.casillaPunto()).to eq " <td><img src='images/punto.jpg'/></td> "
+    end
+    it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
+        expect(@casilla.casillaEnBlanco()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
+    end
+    
+    it "Deberia devolver  un punto y espacio en blanco cuando superior de la casilla sea false " do
+        expect(@casilla.generarLadoSuperiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaEnBlanco())
+    end
+
+    it "Deberia devolver  un punto y linea horizontal cuando superior de la casilla sea true " do
+        @casilla.marcarSuperior()
+        expect(@casilla.generarLadoSuperiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaLineaHorizontal())
+    end
+
+    it "Deberia devolver  dos espacios  en blanco cuando izquierdo de la casilla sea false y la casilla no este marcada " do
+        expect(@casilla.generarCasillaPintadaYLadoIzquierdo()).to eq (@casilla.casillaEnBlanco()+@casilla.casillaEnBlanco())
+    end
+
+    it "Deberia devolver  espacio  en blanco  y la casilla marcada de color '#0000ff' cuando izquierdo de la casilla sea true y la casilla este marcada con ese color." do
+        @casilla.pintar("#0000ff")
+        @casilla.marcarIzquierdo()
+        expect(@casilla.generarCasillaPintadaYLadoIzquierdo).to eq (@casilla.casillaLineaVertical()+@casilla.generarHTMLCasilla())
+    end
+
 end
