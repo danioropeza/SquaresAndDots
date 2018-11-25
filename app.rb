@@ -39,9 +39,12 @@ class App < Sinatra::Base
         @nombre2 = @@juego.nombre2()	
         @colorJugador1 = @@juego.color1()	        
         @colorJugador2 = @@juego.color2()	
-        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1()) * 2
-        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2()) * 2
+        @puntaje1 = @@juego.contarCasillasJugador(@@juego.color1())
+        @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
         @bodyTablero = @@juego.generarHTMLTabla()
+        if(@@juego.terminoElJuego())
+            redirect "/resultado"
+        end
         erb:juego
     end
 
@@ -67,5 +70,10 @@ class App < Sinatra::Base
         @puntaje2 = @@juego.contarCasillasJugador(@@juego.color2())
         @bodyTablero = @@juego.generarHTMLTabla()
         erb:juego
+    end
+
+    get '/resultado' do
+        @ganador = @@juego.ganadorDelJuego()
+        erb:resultado
     end
 end

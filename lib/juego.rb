@@ -100,4 +100,8 @@ class Juego
     def generarHTMLTabla()
         return @tablero.generarHTMLTabla()
     end
+
+    def terminoElJuego()
+        return @tablero.esLleno()
+    end
 end

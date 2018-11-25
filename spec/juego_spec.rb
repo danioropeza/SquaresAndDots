@@ -58,4 +58,20 @@ describe Juego do
         @juego.reiniciarPartida()
         expect(@juego.estaElTableroVacio()).to eq true
     end
+
+    it "Deberia terminar el juego cuando todas las casillas esten pintadas" do
+        for i in 1..5 do
+            for j in 1..5 do
+                @juego.jugada(i, j, "izquierdo")
+                @juego.jugada(i, j, "derecho")
+                @juego.jugada(i, j, "superior")
+                @juego.jugada(i, j, "inferior")
+            end
+        end
+        expect(@juego.terminoElJuego()).to eq true
+    end
+
+    # it "Deberia devolver el jugador con mayor puntaje" do
+    #     expect(@juego.estaElTableroVacio()).to eq true
+    # end
 end
