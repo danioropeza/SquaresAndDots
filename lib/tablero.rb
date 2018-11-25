@@ -127,39 +127,23 @@ class Tablero
         end
         return resultado
     end
-   
-
-   
-
-  
-
-
-   
     
     def generarHTMLTabla()
         bodyTabla = " <tbody> "
         numeroCasilla = numeroFila = 1
         filaPuntos = filaPintada = ultimaFila= "  <tr> "
-
         @tablero.each do |casilla|
             filaPuntos = filaPuntos + casilla.generarLadoSuperiorFilaPuntos()
-
             filaPintada = filaPintada + casilla.generarCasillaPintadaYLadoIzquierdo()
-
             if(numeroFila-1 == @tamanio)
                 ultimaFila = ultimaFila + casilla.generarLadoInferiorFilaPuntos()
             end
-
             if(ultimaColumna(numeroCasilla))
-
                 bodyTabla = casilla.generarFinDeFilas(bodyTabla, filaPintada, filaPuntos)
-
                 numeroFila = numeroFila + 1
                 filaPuntos = filaPintada = "  <tr> "
             end
-           
             numeroCasilla = numeroCasilla + 1
-
         end
         ultimaFila = ultimaFila + "<td><img src='images/punto.jpg'/></td>" 
         ultimaFila = ultimaFila + "  </tr> "

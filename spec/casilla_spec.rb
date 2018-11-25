@@ -83,32 +83,40 @@ describe Casilla do
         expect(@casilla.casillaEnBlanco()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
     end
     
-    it "Deberia devolver  un punto y espacio en blanco cuando superior de la casilla sea false " do
-        expect(@casilla.generarLadoSuperiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaEnBlanco())
+    it "Deberia devolver un punto y espacio en blanco cuando la parte superior de la casilla no este marcada" do
+        expect(@casilla.generarLadoSuperiorFilaPuntos()).to eq (@casilla.casillaPunto() + @casilla.casillaEnBlanco())
     end
 
-    it "Deberia devolver  un punto y linea horizontal cuando superior de la casilla sea true " do
+    it "Deberia devolver  un punto y linea horizontal cuando la parte superior de la casilla este marcada" do
         @casilla.marcarSuperior()
         expect(@casilla.generarLadoSuperiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaLineaHorizontal())
     end
 
-    it "Deberia devolver  dos espacios  en blanco cuando izquierdo de la casilla sea false y la casilla no este marcada " do
+    it "Deberia devolver dos espacios en blanco cuando la parte izquierda de la casilla no este marcada ni pintada" do
         expect(@casilla.generarCasillaPintadaYLadoIzquierdo()).to eq (@casilla.casillaEnBlanco()+@casilla.casillaEnBlanco())
     end
 
-    it "Deberia devolver  espacio  en blanco  y la casilla marcada de color '#0000ff' cuando izquierdo de la casilla sea true y la casilla este marcada con ese color." do
+    it "Deberia devolver espacio en blanco y la casilla pintada de color '#0000ff' cuando la parte izquierda de la casilla este marcada y la casilla entera pintada." do
         @casilla.pintar("#0000ff")
         @casilla.marcarIzquierdo()
         expect(@casilla.generarCasillaPintadaYLadoIzquierdo).to eq (@casilla.casillaLineaVertical()+@casilla.generarHTMLCasilla())
     end
 
-    it "Deberia devolver  un punto y espacio en blanco cuando inferior de la casilla sea false " do
+    it "Deberia devolver un punto y espacio en blanco cuando la parte inferior de la casilla no este marcada" do
         expect(@casilla.generarLadoInferiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaEnBlanco())
     end
 
-    it "Deberia devolver  un punto y linea horizontal cuando superior de la casilla sea true " do
+    it "Deberia devolver un punto y linea horizontal cuando la parte inferior de la casilla este marcada" do
         @casilla.marcarInferior()
         expect(@casilla.generarLadoInferiorFilaPuntos()).to eq (@casilla.casillaPunto()+@casilla.casillaLineaHorizontal())
     end
 
+    it "Deberia devolver un punto y espacio en blanco cuando la parte derecha de la casilla no este marcada" do
+        expect(@casilla.generarFinDeFilas("", "", "")).to eq (@casilla.casillaPunto() + "  </tr> " + @casilla.casillaEnBlanco() + "  </tr> ")
+    end
+
+    it "Deberia devolver un punto y linea vertical cuando la parte derecha de la casilla este marcada" do
+        @casilla.marcarDerecho()
+        expect(@casilla.generarFinDeFilas("", "", "")).to eq (@casilla.casillaPunto() + "  </tr> " + @casilla.casillaLineaVertical() + "  </tr> ")
+    end
 end

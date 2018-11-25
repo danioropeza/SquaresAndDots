@@ -83,8 +83,7 @@ class Casilla
     end
 
     def generarLadoSuperiorFilaPuntos()
-        filaPuntos=""
-        filaPuntos = filaPuntos + casillaPunto()
+        filaPuntos = casillaPunto()
         if(superior)
             filaPuntos = filaPuntos + casillaLineaHorizontal()
         else
@@ -94,19 +93,17 @@ class Casilla
     end
 
     def generarCasillaPintadaYLadoIzquierdo()
-        filaPintada=""
         if(izquierdo)
-            filaPintada = filaPintada + casillaLineaVertical()
+            filaPintada = casillaLineaVertical()
         else
-            filaPintada = filaPintada + casillaEnBlanco()
+            filaPintada = casillaEnBlanco()
         end
         filaPintada = filaPintada + generarHTMLCasilla()
         return filaPintada
     end
 
     def generarLadoInferiorFilaPuntos()
-        ultimaFila=""
-        ultimaFila = ultimaFila + casillaPunto()
+        ultimaFila = casillaPunto()
         if(inferior())
             ultimaFila = ultimaFila + casillaLineaHorizontal()
         else 
@@ -128,6 +125,4 @@ class Casilla
         bodyTabla = bodyTabla + filaPuntos + filaPintada
         return bodyTabla
     end
-    
-
 end

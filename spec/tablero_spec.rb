@@ -89,6 +89,31 @@ describe Tablero do
         expect(@tablero.contarCasillasJugador("0000ff")).to eq 1
     end
 
+    it "Deberia generar un tablero de 2x2 vacio" do
+        @tablero.ingresarTamano(2)
+        expect(@tablero.generarHTMLTabla()).to eq " <tbody>   <tr>  <td><img src='images/punto.jpg'/></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td><img src='images/punto.jpg'/></td>   </tr>   " + 
+                                                  "<tr>  <td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>   </tr>   " + 
+                                                  "<tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td><img src='images/punto.jpg'/></td>   </tr>   " + 
+                                                  "<tr>  <td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>   </tr>   " + 
+                                                  "<tr>  <td><img src='images/punto.jpg'/></td>  " + 
+                                                  "<td width='25px' height='25px' bgcolor='white'></td>  " + 
+                                                  "<td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td> " + 
+                                                  "<td><img src='images/punto.jpg'/></td>  </tr>  </tbody>"
+    end
+
     
 
     # it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
