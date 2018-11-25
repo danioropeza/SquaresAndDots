@@ -44,8 +44,9 @@ class App < Sinatra::Base
         @bodyTablero = @@juego.generarHTMLTabla()
         if(@@juego.terminoElJuego())
             redirect "/resultado"
+        else
+            erb:juego
         end
-        erb:juego
     end
 
    
@@ -73,7 +74,7 @@ class App < Sinatra::Base
     end
 
     get '/resultado' do
-        @ganador = @@juego.ganadorDelJuego()
+        # @ganador = @@juego.ganadorDelJuego()
         erb:resultado
     end
 end
