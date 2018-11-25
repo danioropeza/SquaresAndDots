@@ -89,5 +89,32 @@ describe Tablero do
         expect(@tablero.contarCasillasJugador("0000ff")).to eq 1
     end
 
+    it "Deberia devolver el siguiente codigo cuando hago una jugada con linea horizontal " do 
+        expect(@tablero.casillaLineaHorizontal()).to eq " <td><img src='images/lineaHorizontal.jpg'/></td> "
+    end
+
+    it "Deberia devolver el siguiente codigo cuando hago una jugada con linea vertical" do
+        expect(@tablero.casillaLineaVertical()).to eq " <td><img src='images/lineaVertical.jpg'/></td> "
+    end
+    it "Deberia devolver el siguiente codigo para visualizar los puntos del tablero" do
+        expect(@tablero.casillaPunto()).to eq " <td><img src='images/punto.jpg'/></td> "
+    end
+    it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
+        expect(@tablero.casillaEnBlanco()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
+    end
+
+    # it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
+    #     expect(@tablero.generarFilaPuntos()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
+    # end
+    # it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
+    #     expect(@tablero.generarFilaPintada()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
+    # end
+    # it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
+    #     expect(@tablero.generarUltimaFila()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
+    # end
+    # it "Deberia devolver el siguiente codigo para visualizar las casillas vacias" do
+    #     expect(@tablero.finalizarFila()).to eq " <td width='25px' height='25px' bgcolor='white'></td> "
+    # end
+
 
 end
