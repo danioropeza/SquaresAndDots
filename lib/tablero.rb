@@ -120,61 +120,89 @@ class Tablero
         return resultado
     end
 
-    def multiploTamanio(numero)
+    def ultimaColumna(numero)
         resultado = false
         if(numero % (@tamanio+1) == 0)
             resultado = true
         end
         return resultado
     end
+    def generarFilaPuntos(filaPuntos, casilla)
+        filaPuntos = filaPuntos + casillaPunto
+        if(casilla.superior())
+            filaPuntos = filaPuntos + casillaLineaHorizontal()
+        else
+            filaPuntos = filaPuntos + casillaEnBlanco()
+        end
+        return filaPuntos
+    end
 
+    def generarFilaPintada(filaPintada, casilla)
+        if(casilla.izquierdo())
+            filaPintada = filaPintada + casillaLineaVertical()
+        else
+            filaPintada = filaPintada + casillaEnBlanco()
+        end
+        filaPintada = filaPintada + casilla.generarHTML()
+    end
+
+    def generarUltimaFila(ultimaFila, casilla)
+        ultimaFila = ultimaFila + casillaPunto()
+        if(casilla.inferior())
+            ultimaFila = ultimaFila + casillaLineaHorizontal()
+        else 
+            ultimaFila = ultimaFila + casillaEnBlanco()
+        end
+    end
+
+    def finalizarFila(bodyTabla, filaPintada, filaPuntos, casilla)
+        if(casilla.derecho())
+            filaPintada = filaPintada + casillaLineaVertical()
+        else
+            filaPintada = filaPintada + casillaEnBlanco()
+        end
+        filaPuntos = filaPuntos + casillaPunto
+        
+        filaPuntos = filaPuntos + "  </tr> "
+        filaPintada = filaPintada + "  </tr> "
+        bodyTabla = bodyTabla + filaPuntos + filaPintada
+        return bodyTabla
+    end
+
+
+    def casillaLineaHorizontal()
+        return " <td><img src='images/lineaHorizontal.jpg'/></td> "
+    end
+    def casillaLineaVertical()
+        return " <td><img src='images/lineaVertical.jpg'/></td> " 
+    end
+    def casillaPunto()
+        return " <td><img src='images/punto.jpg'/></td> "
+    end
+    def casillaEnBlanco()
+        return " <td width='25px' height='25px' bgcolor='white'></td> "
+    end
+    
     def generarHTMLTabla()
         bodyTabla = " <tbody> "
-        casillaLineaHorizontal = " <td><img src='images/lineaHorizontal.jpg'/></td> "
-        casillaLineaVertical = " <td><img src='images/lineaVertical.jpg'/></td> "
-        casillaPunto = " <td><img src='images/punto.jpg'/></td> "
-        casillaEnBlanco = " <td width='25px' height='25px' bgcolor='white'></td> "
-        numeroCasilla = 1
-        numeroFila = 1
-        filaPuntos = "  <tr> "
-        filaPintada = "  <tr> "
-        ultimaFila = "  <tr> "
+        numeroCasilla = numeroFila = 1
+        filaPuntos = filaPintada = ultimaFila= "  <tr> "
 
         @tablero.each do |casilla|
-            filaPuntos = filaPuntos + casillaPunto
-            if(casilla.superior())
-                filaPuntos = filaPuntos + casillaLineaHorizontal
-            else
-                filaPuntos = filaPuntos + casillaEnBlanco
-            end
-            if(casilla.izquierdo())
-                filaPintada = filaPintada + casillaLineaVertical
-            else
-                filaPintada = filaPintada + casillaEnBlanco
-            end
-            filaPintada = filaPintada + casilla.generarHTML()
-            if(numeroFila == @tamanio)
-                ultimaFila = ultimaFila + casillaPunto
-                if(casilla.inferior())
-                    ultimaFila = ultimaFila + casillaLineaHorizontal
-                else 
-                    ultimaFila = ultimaFila + casillaEnBlanco
-                end
+            filaPuntos = generarFilaPuntos(filaPuntos, casilla)
 
+            filaPintada = generarFilaPintada(filaPintada, casilla)
+
+            if(numeroFila-1 == @tamanio)
+                ultimaFila = generarUltimaFila(ultimaFila, casilla)
             end
-            if(multiploTamanio(numeroCasilla))
-                if(casilla.derecho())
-                    filaPintada = filaPintada + casillaLineaVertical
-                else
-                    filaPintada = filaPintada + casillaEnBlanco
-                end
-                filaPuntos = filaPuntos + casillaPunto
-                filaPuntos = filaPuntos + "  </tr> "
-                filaPintada = filaPintada + "  </tr> "
+
+            if(ultimaColumna(numeroCasilla))
+
+                bodyTabla = finalizarFila(bodyTabla, filaPintada, filaPuntos, casilla)
+
                 numeroFila = numeroFila + 1
-                bodyTabla = bodyTabla + filaPuntos + filaPintada
-                filaPuntos = "  <tr> "
-                filaPintada = "  <tr> "
+                filaPuntos = filaPintada = "  <tr> "
             end
            
             numeroCasilla = numeroCasilla + 1
