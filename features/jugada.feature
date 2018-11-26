@@ -7,4 +7,4 @@ Feature: Realizar jugada
         Given visito la pagina jugar
         When introduzco las coordenadas y direccion de la jugada 
         And presiono el boton "Jugada"
-        Then en el tablero debe mostrarse la nuevo jugada
+        Then se debe mostrar el mismo titulo juego

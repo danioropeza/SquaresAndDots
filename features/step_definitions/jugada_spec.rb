@@ -4,7 +4,6 @@ When("introduzco las coordenadas y direccion de la jugada") do
     select('Arriba', from: 'direccion')
 end
 
-Then("en el tablero debe mostrarse la nuevo jugada") do
-    puts page.body
-    # expect(page.find('#jugadorturno').value).to eq "jugadorturno"
+Then("se debe mostrar el mismo titulo juego") do
+    expect(page).to have_content "Juego"
 end

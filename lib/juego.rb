@@ -4,11 +4,15 @@ require "./lib/jugador"
 class Juego
     attr_accessor :tamanio, :nombre1, :nombre2, :color1, :color2
     def initialize(tamanio = nil, nombre1 = nil, nombre2 = nil, color1 = nil, color2 = nil)
-        @tamanio = tamanio unless tamanio.nil?
-        @tablero = Tablero.new(tamanio) unless tamanio.nil?
-        @jugador1 = Jugador.new(nombre1, color1) unless nombre1.nil?
-        @jugador2 = Jugador.new(nombre2, color2) unless nombre2.nil?
-        @jugadorEnTurno = Jugador.new(nombre1, color1) unless nombre1.nil?
+        # puts "Entro al iniciazliar de juegp"
+        if (tamanio != nil)
+            # puts " y a sus atributos"
+            @tamanio = tamanio
+            @tablero = Tablero.new(tamanio)
+            @jugador1 = Jugador.new(nombre1, color1)
+            @jugador2 = Jugador.new(nombre2, color2)
+            @jugadorEnTurno = Jugador.new(nombre1, color1)
+        end
         @turno = 1
     end
 
@@ -102,6 +106,7 @@ class Juego
     end
 
     def terminoElJuego()
+        # puts @tablero
         return @tablero.esLleno()
     end
     
