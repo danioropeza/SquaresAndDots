@@ -4,9 +4,7 @@ require "./lib/jugador"
 class Juego
     attr_accessor :tamanio, :nombre1, :nombre2, :color1, :color2
     def initialize(tamanio = nil, nombre1 = nil, nombre2 = nil, color1 = nil, color2 = nil)
-        # puts "Entro al iniciazliar de juegp"
         if (tamanio != nil)
-            # puts " y a sus atributos"
             @tamanio = tamanio
             @tablero = Tablero.new(tamanio)
             @jugador1 = Jugador.new(nombre1, color1)

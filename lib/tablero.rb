@@ -4,9 +4,7 @@ require "./lib/casilla"
 class Tablero
     attr_accessor :tamano
     def initialize(tamano = nil)
-        # puts "Entro al inicializar tablero"
         if tamano != nil
-            # print " y a sus atributos"
             casillas = Array.new(tamano){Array.new(tamano){Casilla.new()}}
             @tablero = Matrix[*casillas]
             @tamanio = tamano - 1

@@ -4,12 +4,10 @@ require "./lib/jugador"
 require "./lib/juego"
 
 class App < Sinatra::Base
-    # @@juego=Juego.new()
     @@juego=Juego.new(5, "Daniel", "Juan", "#000ff0", "#00fff0")  
     @@existeTamanio=false
 
     get '/' do
-        # @@juego=Juego.new(5,"", "", "", "") 
         @@existeTamanio=false
         erb:inicio
     end
@@ -19,33 +17,24 @@ class App < Sinatra::Base
     end
 
     get '/jugador2' do
-        # @@nombre1 = params[:nombre]
-        # @@color1 = params[:color]
         @@juego.ingresarJugador1(params[:nombre], params[:color])
         erb:jugador2
     end
     
     get '/dimension' do
-        # @@nombre2 = params[:nombre]
-        # @@color2 = params[:color]
+       
         @@juego.ingresarJugador2(params[:nombre],params[:color])
         erb:dimension
     end
 
 
     get '/juego' do
-        # @@dimension = params[:dimension].to_i
-        # print @@dimension
-        # print @@nombre1
-        # print @@nombre2
-        # print @@color1 
-        # print @@color2
+        
         puts "prueba en de juego"
         if (!@@existeTamanio)
             @@juego.ingresarTamanio(params[:dimension].to_i)
             @@existeTamanio=true
         end       
-        # @@juego = Juego.new(@@dimension, @@nombre1, @@nombre2, @@color1, @@color2)
         @nombreDeTurno = @@juego.jugadorEnTurnoNombre()	        
         @colorDeTurno = @@juego.jugadorEnTurnoColor()	        
         @nombre1 = @@juego.nombre1()	        
