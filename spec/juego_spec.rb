@@ -104,4 +104,7 @@ describe Juego do
         @juego.jugada(2, 2, "derecho")
         expect(@juego.ganadorDelJuego()).to eq nil
     end
+
+
+    
 end

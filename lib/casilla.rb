@@ -4,7 +4,7 @@ class Casilla
         @inferior= false
         @derecho = false
         @izquierdo = false
-        @color = "#ffffff"
+        @color = "white"
     end
 
     def esCasillaNula()        
@@ -24,12 +24,12 @@ class Casilla
     end
 
     def pintar(colorcito)
-        if @color == "#ffffff"
+        if @color == "white"
             @color = colorcito
         end
     end
 
-    def generarHTML()
+    def generarHTMLCasilla()
         return " <td width='25px' height='25px' bgcolor='"+@color+"'></td> "
     end
 
@@ -38,7 +38,7 @@ class Casilla
         @inferior= false
         @derecho = false
         @izquierdo = false
-        @color = "#ffffff"
+        @color = "white"
     end
 
     def marcarIzquierdo()
@@ -67,5 +67,62 @@ class Casilla
     end
     def inferior()
         return @inferior
+    end
+
+    def casillaLineaHorizontal()
+        return " <td><img src='images/lineaHorizontal.jpg'/></td> "
+    end
+    def casillaLineaVertical()
+        return " <td><img src='images/lineaVertical.jpg'/></td> " 
+    end
+    def casillaPunto()
+        return " <td><img src='images/punto.jpg'/></td> "
+    end
+    def casillaEnBlanco()
+        return " <td width='25px' height='25px' bgcolor='white'></td> "
+    end
+
+    def generarLadoSuperiorFilaPuntos()
+        filaPuntos = casillaPunto()
+        if(superior)
+            filaPuntos = filaPuntos + casillaLineaHorizontal()
+        else
+            filaPuntos = filaPuntos + casillaEnBlanco()
+        end
+        return filaPuntos
+    end
+
+    def generarCasillaPintadaYLadoIzquierdo()
+        if(izquierdo)
+            filaPintada = casillaLineaVertical()
+        else
+            filaPintada = casillaEnBlanco()
+        end
+        filaPintada = filaPintada + generarHTMLCasilla()
+        return filaPintada
+    end
+
+    def generarLadoInferiorFilaPuntos()
+        ultimaFila = casillaPunto()
+        if(inferior())
+            ultimaFila = ultimaFila + casillaLineaHorizontal()
+        else 
+            ultimaFila = ultimaFila + casillaEnBlanco()
+        end
+        return ultimaFila
+    end
+
+    def generarFinDeFilas(bodyTabla, filaPintada, filaPuntos)
+        if(derecho())
+            filaPintada = filaPintada + casillaLineaVertical()
+        else
+            filaPintada = filaPintada + casillaEnBlanco()
+        end
+        filaPuntos = filaPuntos + casillaPunto()
+        
+        filaPuntos = filaPuntos + "  </tr> "
+        filaPintada = filaPintada + "  </tr> "
+        bodyTabla = bodyTabla + filaPuntos + filaPintada
+        return bodyTabla
     end
 end

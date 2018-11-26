@@ -5,4 +5,6 @@ Feature: Ingresar tamanio
 
    Scenario: Ingresa tamanio
         Given visito la dimension tablero
-        Then deberia poder ingresar el tamanio en el campo "dimension"
+        When ingreso los la dimension en el campo "dimension"
+        And presiono el boton "Ok"
+        Then deberia poder ver el titulo "Juego"

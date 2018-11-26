@@ -6,4 +6,8 @@ Feature: Ver tablero
     Scenario: Tablero de juego.
         Given visito la pagina jugar
         Then deberia mostrar el tablero "table"
+
+    Scenario: Titulo del juego.
+        Given visito la pagina jugar
+        Then deberia ver el titulo "Juego"
     

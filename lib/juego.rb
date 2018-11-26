@@ -4,11 +4,13 @@ require "./lib/jugador"
 class Juego
     attr_accessor :tamanio, :nombre1, :nombre2, :color1, :color2
     def initialize(tamanio = nil, nombre1 = nil, nombre2 = nil, color1 = nil, color2 = nil)
-        @tamanio = tamanio unless tamanio.nil?
-        @tablero = Tablero.new(tamanio) unless tamanio.nil?
-        @jugador1 = Jugador.new(nombre1, color1) unless nombre1.nil?
-        @jugador2 = Jugador.new(nombre2, color2) unless nombre2.nil?
-        @jugadorEnTurno = Jugador.new(nombre1, color1) unless nombre1.nil?
+        if (tamanio != nil)
+            @tamanio = tamanio
+            @tablero = Tablero.new(tamanio)
+            @jugador1 = Jugador.new(nombre1, color1)
+            @jugador2 = Jugador.new(nombre2, color2)
+            @jugadorEnTurno = Jugador.new(nombre1, color1)
+        end
         @turno = 1
     end
 
@@ -57,18 +59,18 @@ class Juego
     end
 
 
-    def ingresarJugador1(jugador1)
-        @jugador1=jugador1
-        @jugadorEnTurno=jugador1
+    def ingresarJugador1(nombre1, color1)
+        @jugador1 = Jugador.new(nombre1, color1)
+        @jugadorEnTurno = Jugador.new(nombre1, color1)
     end
 
-    def ingresarJugador2(jugador2)
-        @jugador2=jugador2
+    def ingresarJugador2(nombre2, color2)
+        @jugador2 = Jugador.new(nombre2, color2)
     end
     
     def ingresarTamanio(tamanio)
         @tablero = Tablero.new(tamanio)
-        @tamanio=tamanio
+        @tamanio = tamanio
     end
     def jugador1()
         return @jugador1
@@ -102,6 +104,7 @@ class Juego
     end
 
     def terminoElJuego()
+        # puts @tablero
         return @tablero.esLleno()
     end
     

@@ -19,8 +19,8 @@ class Tablero
 
     def esVacio()
         resultado = true
-        @tablero.each do |i|
-            if(!i.esCasillaNula())
+        @tablero.each do |casilla|
+            if(!casilla.esCasillaNula())
                 resultado = false
                 break
             end
@@ -30,8 +30,8 @@ class Tablero
 
     def esLleno()
         resultado = true
-        @tablero.each do |i|
-            if(!i.esCasillaPintada())
+        @tablero.each do |casilla|
+            if(!casilla.esCasillaPintada())
                 resultado = false
                 break
             end
@@ -120,67 +120,32 @@ class Tablero
         return resultado
     end
 
-    def multiploTamanio(numero)
+    def ultimaColumna(numero)
         resultado = false
         if(numero % (@tamanio+1) == 0)
             resultado = true
         end
         return resultado
     end
-
+    
     def generarHTMLTabla()
         bodyTabla = " <tbody> "
-        casillaLineaHorizontal = " <td><img src='images/lineaHorizontal.jpg'/></td> "
-        casillaLineaVertical = " <td><img src='images/lineaVertical.jpg'/></td> "
-        casillaPunto = " <td><img src='images/punto.jpg'/></td> "
-        casillaEnBlanco = " <td width='25px' height='25px' bgcolor='white'></td> "
-        numeroCasilla = 1
-        numeroFila = 1
-        filaPuntos = "  <tr> "
-        filaPintada = "  <tr> "
-        ultimaFila = "  <tr> "
-
+        numeroCasilla = numeroFila = 1
+        filaPuntos = filaPintada = ultimaFila= "  <tr> "
         @tablero.each do |casilla|
-            filaPuntos = filaPuntos + casillaPunto
-            if(casilla.superior())
-                filaPuntos = filaPuntos + casillaLineaHorizontal
-            else
-                filaPuntos = filaPuntos + casillaEnBlanco
+            filaPuntos = filaPuntos + casilla.generarLadoSuperiorFilaPuntos()
+            filaPintada = filaPintada + casilla.generarCasillaPintadaYLadoIzquierdo()
+            if(numeroFila-1 == @tamanio)
+                ultimaFila = ultimaFila + casilla.generarLadoInferiorFilaPuntos()
             end
-            if(casilla.izquierdo())
-                filaPintada = filaPintada + casillaLineaVertical
-            else
-                filaPintada = filaPintada + casillaEnBlanco
-            end
-            filaPintada = filaPintada + casilla.generarHTML()
-            if(numeroFila == @tamanio)
-                ultimaFila = ultimaFila + casillaPunto
-                if(casilla.inferior())
-                    ultimaFila = ultimaFila + casillaLineaHorizontal
-                else 
-                    ultimaFila = ultimaFila + casillaEnBlanco
-                end
-
-            end
-            if(multiploTamanio(numeroCasilla))
-                if(casilla.derecho())
-                    filaPintada = filaPintada + casillaLineaVertical
-                else
-                    filaPintada = filaPintada + casillaEnBlanco
-                end
-                filaPuntos = filaPuntos + casillaPunto
-                filaPuntos = filaPuntos + "  </tr> "
-                filaPintada = filaPintada + "  </tr> "
+            if(ultimaColumna(numeroCasilla))
+                bodyTabla = casilla.generarFinDeFilas(bodyTabla, filaPintada, filaPuntos)
                 numeroFila = numeroFila + 1
-                bodyTabla = bodyTabla + filaPuntos + filaPintada
-                filaPuntos = "  <tr> "
-                filaPintada = "  <tr> "
+                filaPuntos = filaPintada = "  <tr> "
             end
-           
             numeroCasilla = numeroCasilla + 1
-
         end
-        ultimaFila = ultimaFila + casillaPunto
+        ultimaFila = ultimaFila + "<td><img src='images/punto.jpg'/></td>" 
         ultimaFila = ultimaFila + "  </tr> "
         bodyTabla = bodyTabla + ultimaFila + " </tbody> "
         return bodyTabla

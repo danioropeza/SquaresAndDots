@@ -9,15 +9,14 @@ describe Tablero do
         expect(@tablero.esVacio()).to eq true
      end
 
+     it "Deberia tablero no estar lleno cuando se lo cree" do
+        expect(@tablero.esLleno()).to eq false
+    end
+    
     it "Deberia marcarse la coordenada '1,3' en direccion 'derecho'" do
         @tablero.marcar(1,3,"derecho","0000ff")
         expect(@tablero.verLadoDeLaCasilla(1,3,"derecho")).to eq true
-     end
-
-     it "Deberia tablero no estar lleno cuando se lo cree" do
-        expect(@tablero.esLleno()).to eq false
-     end
-
+    end
      it "Deberia marcarse la coordenada '1,3' en direccion 'izquierdo'" do
         @tablero.marcar(1,3,"izquierdo","0000ff")
         expect(@tablero.verLadoDeLaCasilla(1,3,"izquierdo")).to eq true
@@ -89,5 +88,36 @@ describe Tablero do
         expect(@tablero.contarCasillasJugador("0000ff")).to eq 1
     end
 
+    it "Deberia generar un tablero de 2x2 vacio" do
+        @tablero.ingresarTamano(2)
+        expect(@tablero.generarHTMLTabla()).to eq " <tbody>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td> <td><img src='images/punto.jpg'/></td>  </tr>  </tbody> "
+    end
 
+    it "Deberia generar un tablero de 2x2 con una jugada" do
+        @tablero.ingresarTamano(2)
+        @tablero.marcar(1, 1, "izquierdo", "0000ff")
+        expect(@tablero.generarHTMLTabla()).to eq " <tbody>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td> <td><img src='images/punto.jpg'/></td>  </tr>  </tbody> "
+    end
+
+    it "Deberia generar un tablero de 2x2 con una casilla pintada de color '0000ff'" do
+        @tablero.ingresarTamano(2)
+        @tablero.marcar(1, 1, "inferior", "0000ff")
+        @tablero.marcar(1, 1, "superior", "0000ff")
+        @tablero.marcar(1, 1, "izquierdo", "0000ff")
+        @tablero.marcar(1, 1, "derecho", "0000ff")
+        expect(@tablero.generarHTMLTabla()).to eq " <tbody>   <tr>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='0000ff'></td>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td width='25px' height='25px' bgcolor='white'></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td>  <td><img src='images/punto.jpg'/></td>  <td width='25px' height='25px' bgcolor='white'></td> <td><img src='images/punto.jpg'/></td>  </tr>  </tbody> "
+    end
+
+    it "Deberia generar un tablero de 2x2 lleno" do
+        @tablero.ingresarTamano(2)
+        for i in 1..2 do
+            for j in 1..2 do
+                @tablero.marcar(i, j, "izquierdo", "0000ff")
+                @tablero.marcar(i, j, "derecho", "0000ff")
+                @tablero.marcar(i, j, "superior", "0000ff")
+                @tablero.marcar(i, j, "inferior", "0000ff")
+            end
+        end
+        expect(@tablero.generarHTMLTabla()).to eq " <tbody>   <tr>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='0000ff'></td>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='0000ff'></td>  <td><img src='images/lineaVertical.jpg'/></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>   </tr>   <tr>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='0000ff'></td>  <td><img src='images/lineaVertical.jpg'/></td>  <td width='25px' height='25px' bgcolor='0000ff'></td>  <td><img src='images/lineaVertical.jpg'/></td>   </tr>   <tr>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td>  <td><img src='images/punto.jpg'/></td>  <td><img src='images/lineaHorizontal.jpg'/></td> <td><img src='images/punto.jpg'/></td>  </tr>  </tbody> "
+    end
 end
